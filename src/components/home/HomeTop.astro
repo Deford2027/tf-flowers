@@ -1,0 +1,156 @@
+---
+/** Новая главная, блоки 2–5а прототипа flowers v2: поток заказов,
+    три боли, кейсы, плашка про праздники, «Почему мы», что меняется
+    у владельца. Цифры – только подтверждённые (кейсы ВК, 90% клиентов
+    годами, 50+ цветочных и 6+ лет – слова Артёма 29.10.2026). */
+const I = '/tema-mail-tf-flowers-v2/img/flowers/';
+
+const pains = [
+  ['38663061-ChatGPT_Image_17__20.png', 'Списания', 'Закупили под выходные, а заказов не хватило – цветы уходят в мусор. Запускаем рекламу и рассылку под то, что стоит в холодильнике сейчас.'],
+  ['63383836-ChatGPT_Image_17__20.png', 'Флорист на два фронта', 'Пока он отвечает «сколько стоит» и «успеете к шести?», букет ждёт. Чат-бот сам отвечает на типовые вопросы и передаёт флористу готовый заказ.'],
+  ['32396563-ChatGPT_Image_17__20.png', 'Праздник – завал, будни – тишина', '8 Марта и 14 февраля – пара недель в году. Готовим праздник за месяц, а между праздниками даём людям поводы заказать: дни рождения, годовщины, «просто так».'],
+];
+
+const cases = [
+  {
+    shot: '61363837-3.png',
+    kicker: 'Реклама ВКонтакте',
+    title: 'Обращение – 251 ₽ вместо 2 500–3 000 ₽',
+    text: '209 тёплых обращений: реклама по району, чат-бот, рассылка, ретаргетинг.',
+    button: 'Хочу заявки дешевле',
+    vc: 'https://vc.ru/id3572167/3150153-effektivnaya-reklama-tsvetochnogo-magazina-vkontakte',
+  },
+  {
+    shot: '35613666-2.png',
+    kicker: 'Без сайта · только ВКонтакте',
+    title: '215 обращений по 245 ₽',
+    text: 'Сайта у магазина не было – две связки с чат-ботом во ВКонтакте.',
+    button: 'Хочу заказы без сайта',
+    vc: 'https://vc.ru/id3572167/3150182-kak-privelch-klientov-v-tsvetochnyj-magazin-cherez-vkontakte',
+  },
+  {
+    shot: '63336436-1.png',
+    kicker: 'Перенастройка рекламы',
+    title: 'Заявка – 400 ₽ вместо 1 500–2 000 ₽',
+    text: 'Разобрали группу, настроили чат-бота и воронку, протестировали аудитории.',
+    button: 'Разобрать мою рекламу',
+    vc: 'https://vc.ru/marketing/3150040-reklama-vkontakte-dlya-tsvetochnogo-magazina',
+  },
+];
+
+const compare = [
+  ['<b>Клиенты уходят через пару месяцев – текучка.</b> Всё поставлено на поток: каждый месяц приходят новые магазины, а про вас уже забыли. В итоге у вас крутятся креативы и связки, настроенные в первую неделю', '<b>90% клиентов работают с нами годами.</b> Я сам в кабинетах клиентов и отвечаю головой за результат'],
+  ['<b>Не понимают экономику магазина:</b> «скидка 40% на цветы» и розыгрыши ради активности', '<b>Считаем маржу:</b> ДРР, окупаемость, средний чек. Акция не должна съедать прибыль'],
+  ['<b>Знают только цветы – взгляд замылен.</b> В кризис не знают, что запускать, и заявки выходят по 1 500 ₽', '<b>Работаем во многих нишах.</b> Приносим рабочие приёмы из автобизнеса, товарки и крупного ритейла – то, чего нет у узких агентств. При этом запустили больше 50 цветочных магазинов по всей России и хорошо знаем нишу'],
+  ['Кабинет у подрядчика: уйдёт – заберёт всё', '<b>Работаем в вашем кабинете</b> – у вас полный доступ и контроль'],
+];
+
+const changes = [
+  ['Закуп уходит в заказы', 'Реклама и рассылки идут под то, что есть в холодильнике, – меньше цветов в мусор.', 'Пришла свежая поставка пионов – <mark>сегодня запускаем рассылку по базе</mark> и рекламу по району.'],
+  ['Праздник по плану', 'Заказы приняты заранее, флористы собирают, чат-бот отвечает.', 'Предзаказы к 8 Марта открыты за месяц – <mark>чат-бот принимает заказы</mark>, флористы собирают по списку.'],
+  ['Владелец занимается магазином', 'Рекламу ведём мы, раз в неделю – отчёт простыми словами: сколько заказов и сколько они стоили.', 'Отчёт за неделю: <mark>сколько заказов и сколько стоил каждый</mark>, что меняем дальше.'],
+];
+---
+
+<section class="fs-section fs-section--light">
+  <div class="fs-wrap fs-stack fs-center">
+    <span class="fs-tag">Поток заказов</span>
+    <h2>Наладим поток заказов для вашего цветочного</h2>
+    <div class="fs-grid" style="--cols: 3; --cols-t: 3; margin-top: 14px; text-align: left;">
+      <article class="fs-card"><span class="fs-num">50+</span><h3>цветочных магазинов запустили</h3><p class="fs-muted">Знаем закуп, сезоны и средний чек цветочного – не учимся на вашем бюджете</p></article>
+      <article class="fs-card fs-card--dark"><span class="fs-num">90%</span><h3>клиентов работают с нами годами</h3><p class="fs-muted">Магазины остаются, потому что видят заказы, а не отчёты об охватах</p></article>
+      <article class="fs-card"><span class="fs-num">Любой</span><h3>город</h3><p class="fs-muted">От посёлка на 20 тысяч человек до миллионника – бюджет считаем под ваш город</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="fs-section">
+  <div class="fs-wrap fs-stack fs-center">
+    <span class="fs-tag">Боли владельца</span>
+    <h2>Три вещи, которые съедают выручку цветочного</h2>
+    <div class="fs-grid fh-swipe" style="--cols: 3; --cols-t: 3; margin-top: 14px; text-align: left;">
+      {pains.map(([img, title, text], i) => (
+        <article class="fh-photo-card fh-photo-card--dark">
+          <img src={I + img} alt="" loading="lazy" />
+          <span class="fs-step">0{i + 1}</span>
+          <h3>{title}</h3>
+          <p class="fs-muted">{text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<div id="cases">
+  <section class="fs-section fs-section--dark">
+    <div class="fs-wrap fs-stack fs-center">
+      <span class="fs-tag">Кейсы</span>
+      <h2>Что изменилось у наших цветочных – в цифрах</h2>
+      <p class="fs-lead">Только то, что можно показать из рекламного кабинета или кассы. Каждую цифру покажем на созвоне вживую.</p>
+      <div class="fs-grid fh-swipe" style="--cols: 3; --cols-t: 3; margin-top: 14px; text-align: left;">
+        {cases.map((c) => (
+          <article class="fh-photo-card">
+            <div class="fh-shot"><img src={I + c.shot} alt="Скрин рекламного кабинета" loading="lazy" /></div>
+            <span class="fh-kicker">{c.kicker}</span>
+            <h3 class="fh-case-num">{c.title}</h3>
+            <p class="fs-muted">{c.text}</p>
+            <div class="fh-links">
+              <a class="fs-btn" href="#plan">{c.button}</a>
+              {c.vc && <a class="fs-link" href={c.vc} target="_blank" rel="noopener">Кейс на vc.ru</a>}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="fs-section fs-section--light" style="padding: 40px 0;">
+  <div class="fs-wrap">
+    <div class="fs-strip">
+      <p><b>90% цветочных зарабатывают только в праздники.</b> В остальные дни выручки едва хватает на зарплату флористам и аренду. Больше 6 лет выводим цветочные магазины на стабильный доход – и вне праздников.</p>
+      <a class="fs-btn fs-btn--lime" href="#plan">Хочу доход и в будни</a>
+    </div>
+  </div>
+</section>
+
+<section class="fs-section">
+  <div class="fs-wrap fs-stack">
+    <span class="fs-tag">Почему мы</span>
+    <h2>Не типичное агентство: за результат отвечаю лично я – Денис Коротаев</h2>
+    <div class="fs-split" style="margin-top: 14px;">
+      <img class="fs-photo" src={I + '32393532-ChatGPT_Image_15__20.png'} alt="Денис Коротаев на фоне рекламного кабинета клиента" loading="lazy" style="object-position: 70% center;" />
+      <div class="fs-stack">
+        <p style="font-size: 18px; line-height: 1.45;"><b>Денис Коротаев</b>, основатель TargetFactory. Сертифицированный таргетолог и партнёр ВКонтакте, больше 6 лет в digital-продвижении малого и среднего бизнеса.</p>
+        <p class="fs-quote">«Я не просто запускаю рекламу – я погружаюсь в ваш бизнес: изучаю цели, аудиторию и продукт, чтобы выстроить систему, которая начнёт приносить заявки уже в первый месяц».</p>
+      </div>
+    </div>
+    <table class="fs-compare" style="margin-top: 10px;">
+      <tr><th>Крупные рекламные агентства, которые работают с цветами</th><th>Мы</th></tr>
+      {compare.map(([them, us]) => (
+        <tr><td data-label="Крупные агентства" set:html={them} /><td data-label="Мы" set:html={us} /></tr>
+      ))}
+    </table>
+    <h3 class="fh-florist">И мы из тех, кто знает, что у пионов есть сезон, гортензия пьёт много воды, а лилии нужен косой срез.</h3>
+    <div class="fh-links" style="justify-content: center;"><a class="fs-btn fs-btn--lime" href="#plan">Разобрать мой магазин</a><a class="fs-link" href="/tema-mail-tf-flowers-v2/why-us/">Как мы работаем и что вы видите – подробно</a></div>
+  </div>
+</section>
+
+<section class="fs-section fs-section--light">
+  <div class="fs-wrap fs-stack fs-center">
+    <span class="fs-tag">Что меняется</span>
+    <h2>Меньше списаний, спокойнее праздники, больше времени на магазин</h2>
+    <div class="fs-grid" style="--cols: 3; --cols-t: 1; margin-top: 14px; text-align: left;">
+      {changes.map(([title, text, msg], i) => (
+        <article class="fs-card">
+          <span class="fs-step">0{i + 1}</span>
+          <h3>{title}</h3>
+          <p class="fs-muted">{text}</p>
+          <div class:list={['fh-bubble', i % 2 ? 'fh-bubble--tilt-r' : 'fh-bubble--tilt']} style="background: #f1f2f4;">
+            <span set:html={msg} /><small>пример сообщения в рабочем чате</small>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

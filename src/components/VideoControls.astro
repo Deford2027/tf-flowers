@@ -1,0 +1,212 @@
+---
+/** Кнопки «плей» и «пауза» поверх всех видео лендинга (.fs-video).
+    Kinescope понимает протокол player.js: команды play/pause и события
+    play/pause/ended идут через postMessage – как пауза отзывов на
+    старой главной (ReviewsPause.astro в deford-studio). Плеер ВК этот
+    протокол не знает: по кнопке грузим ролик с autoplay=1, дальше
+    пауза – кликом по самому плееру ВК. */
+---
+
+<style is:global>
+  .fs-player {
+    position: relative;
+    display: block;
+    width: 100%;
+  }
+
+  .fs-player__btn {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 24px;
+    background: rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .fs-player__circle {
+    display: grid;
+    place-items: center;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: #202020;
+    box-shadow: 0 0 0 6px rgba(206, 254, 70, 0.25);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .fs-player__circle svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .fs-player__btn:hover .fs-player__circle {
+    transform: scale(1.06);
+  }
+
+  .fs-player__pause {
+    display: none;
+  }
+
+  /* Видео играет: подложка прозрачная, значок паузы – при наведении
+     и пару секунд после нажатия */
+  .fs-player.is-playing .fs-player__btn {
+    background: transparent;
+  }
+
+  .fs-player.is-playing .fs-player__play {
+    display: none;
+  }
+
+  .fs-player.is-playing .fs-player__pause {
+    display: block;
+  }
+
+  .fs-player.is-playing .fs-player__circle {
+    opacity: 0;
+  }
+
+  .fs-player.is-playing .fs-player__btn:hover .fs-player__circle,
+  .fs-player.is-playing.is-hint .fs-player__circle {
+    opacity: 1;
+  }
+
+  .fs-player.is-native .fs-player__btn {
+    display: none;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var PJS = { context: 'player.js', version: '0.0.11' };
+    var ICONS =
+      '<span class="fs-player__circle" aria-hidden="true">' +
+      '<svg class="fs-player__play" viewBox="0 0 20 20"><path d="M7 5L15 10L7 15V5Z" fill="#CEFE46"></path></svg>' +
+      '<svg class="fs-player__pause" viewBox="0 0 20 20"><rect x="5.5" y="4.5" width="3" height="11" rx="1" fill="#CEFE46"></rect><rect x="11.5" y="4.5" width="3" height="11" rx="1" fill="#CEFE46"></rect></svg>' +
+      '</span>';
+
+    var players = [];
+
+    function send(p, method) {
+      if (!p.frame.contentWindow) return;
+      p.frame.contentWindow.postMessage(
+        JSON.stringify({ context: PJS.context, version: PJS.version, method: method }),
+        '*'
+      );
+    }
+
+    function withAutoplay(src) {
+      return src + (src.indexOf('?') === -1 ? '?' : '&') + 'autoplay=1';
+    }
+
+    document.querySelectorAll('iframe.fs-video').forEach(function (frame) {
+      var wrap = document.createElement('div');
+      wrap.className = 'fs-player';
+      frame.parentNode.insertBefore(wrap, frame);
+      wrap.appendChild(frame);
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'fs-player__btn';
+      btn.setAttribute('aria-label', 'Смотреть видео');
+      btn.innerHTML = ICONS;
+      wrap.appendChild(btn);
+
+      var p = {
+        wrap: wrap,
+        frame: frame,
+        btn: btn,
+        kinescope: frame.src.indexOf('kinescope.io') !== -1,
+        ready: false,
+        playing: false,
+        started: false,
+        hintTimer: 0,
+      };
+      players.push(p);
+
+      function setPlaying(playing) {
+        p.playing = playing;
+        wrap.classList.toggle('is-playing', playing);
+        btn.setAttribute('aria-label', playing ? 'Пауза' : 'Смотреть видео');
+      }
+
+      function hint() {
+        wrap.classList.add('is-hint');
+        clearTimeout(p.hintTimer);
+        p.hintTimer = setTimeout(function () {
+          wrap.classList.remove('is-hint');
+        }, 1800);
+      }
+
+      p.setPlaying = setPlaying;
+
+      btn.addEventListener('click', function () {
+        /* ВК: грузим с автозапуском и отдаём управление его плееру */
+        if (!p.kinescope) {
+          frame.src = withAutoplay(frame.src);
+          wrap.classList.add('is-native');
+          return;
+        }
+
+        var next = !p.playing;
+        if (next) {
+          /* Остальные видео на странице – на паузу */
+          players.forEach(function (o) {
+            if (o !== p && o.kinescope && o.playing) {
+              send(o, 'pause');
+              o.setPlaying(false);
+            }
+          });
+        }
+
+        if (p.ready) {
+          send(p, next ? 'play' : 'pause');
+        } else if (!p.started) {
+          frame.src = withAutoplay(frame.src);
+        }
+        p.started = true;
+        setPlaying(next);
+        hint();
+      });
+    });
+
+    /* События плеера Kinescope: держим значок в согласии с экраном */
+    window.addEventListener('message', function (event) {
+      var data = event.data;
+      if (typeof data === 'string') {
+        try {
+          data = JSON.parse(data);
+        } catch (e) {
+          return;
+        }
+      }
+      if (!data || data.context !== 'player.js') return;
+
+      var p = null;
+      players.forEach(function (o) {
+        if (o.frame.contentWindow === event.source) p = o;
+      });
+      if (!p) return;
+
+      if (data.event === 'ready') {
+        p.ready = true;
+        ['play', 'pause', 'ended'].forEach(function (name) {
+          p.frame.contentWindow.postMessage(
+            JSON.stringify({ context: PJS.context, version: PJS.version, method: 'addEventListener', value: name, listener: 'fs-' + name }),
+            '*'
+          );
+        });
+        return;
+      }
+
+      if (data.event === 'play') p.setPlaying(true);
+      if (data.event === 'pause' || data.event === 'ended') p.setPlaying(false);
+    });
+  })();
+</script>

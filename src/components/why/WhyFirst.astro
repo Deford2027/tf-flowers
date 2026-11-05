@@ -1,0 +1,474 @@
+---
+/* Первый экран «Почему мы» – по макету Figma (страница Page 5,
+   фрейм «why-us / Почему мы» 48:3284 и мобилка 48:3330, 02.11.2026).
+   На десктопе: текст слева, Денис в кресле справа поверх белой
+   плашки цитаты, ниже две колонки «агентства / мы». На телефоне
+   колонки идут парами: агентства – мы, у каждой карточки свой ярлык. */
+
+const compare = [
+  {
+    them: '<b>Клиенты уходят через пару месяцев – текучка</b>. Всё поставлено на поток: каждый месяц приходят новые магазины, а про вас уже забыли. В итоге у вас крутятся креативы и связки, настроенные в первую неделю',
+    us: '<b>90% клиентов работают с нами годами.</b> Я сам в кабинетах клиентов и отвечаю головой за результат',
+  },
+  {
+    them: '<b>Не понимают экономику магазина:</b> «скидка 40% на цветы» и розыгрыши ради активности',
+    us: '<b>Считаем маржу:</b> ДРР, окупаемость, средний чек. Акция не должна съедать прибыль',
+  },
+  {
+    them: '<b>Знают только цветы – взгляд замылен.</b> В кризис не знают, что запускать, и заявки выходят по 1 500 ₽',
+    us: '<b>Работаем во многих нишах.</b> Приносим рабочие приёмы из автобизнеса, товарки и крупного ритейла – то, чего нет у узких агентств. При этом запустили больше 50 цветочных магазинов по всей России и хорошо знаем нишу',
+  },
+  {
+    them: '<b>Кабинет у подрядчика:</b> уйдёт – заберёт всё',
+    us: '<b>Работаем в вашем кабинете</b> – у вас полный доступ и контроль',
+  },
+];
+
+const themTitle = 'Рекламные агентства, которые работают только с цветами';
+const usTitle = 'Мы – TargetFactory';
+---
+
+<section class="fs-section fs-section--first wf">
+  <div class="wf-wrap">
+    <div class="wf-top">
+      <div class="wf-art" aria-hidden="true">
+        <img class="wf-shadow" src="/tema-mail-tf-flowers-v2/img/figma/why-shadow.svg" alt="" />
+        <img class="wf-floor" src="/tema-mail-tf-flowers-v2/img/figma/why-floor.svg" alt="" />
+      </div>
+      <img class="wf-photo" src="/tema-mail-tf-flowers-v2/img/figma/why-denis.webp" width="1122" height="1402" alt="Денис Коротаев, основатель TargetFactory, с ноутбуком в кресле" />
+
+      <span class="fs-tag wf-tag">Почему мы</span>
+      <h1 class="wf-h1">Не типичное агентство: за&nbsp;результат отвечаю лично я – Денис Коротаев</h1>
+      <p class="wf-lead"><b>Денис Коротаев</b>, основатель TargetFactory. Сертифицированный таргетолог и партнёр ВКонтакте, больше 6 лет в digital-продвижении малого и среднего бизнеса.</p>
+      <div class="wf-quote">
+        <p>«Я не просто запускаю рекламу – я погружаюсь в ваш бизнес: изучаю цели, аудиторию и продукт, чтобы выстроить систему, которая начнёт приносить заявки уже в первый месяц».</p>
+      </div>
+    </div>
+
+    <div class="wf-compare">
+      <div class="wf-col wf-col--them">
+        <h2 class="wf-head">{themTitle}</h2>
+        {compare.map((row) => (
+          <div class="wf-card"><span class="wf-label">{themTitle}</span><p set:html={row.them} /></div>
+        ))}
+      </div>
+      <div class="wf-col wf-col--us">
+        <h2 class="wf-head">{usTitle}</h2>
+        {compare.map((row) => (
+          <div class="wf-card"><span class="wf-label">{usTitle}</span><p set:html={row.us} /></div>
+        ))}
+      </div>
+    </div>
+
+    <p class="wf-phrase">И мы из тех, кто знает, что у пионов есть сезон, гортензия пьёт много воды, а лилии нужен косой срез.</p>
+    <div class="wf-cta">
+      <a class="wf-btn" href="#popup:myform">Разобрать мой магазин</a>
+      <a class="wf-more" href="#transparency">Как мы работаем и что вы видите – подробно</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .wf {
+    padding-bottom: 76px;
+  }
+
+  .wf-wrap {
+    width: min(1194px, 100% - 36px);
+    margin: 0 auto;
+  }
+
+  /* ВЕРХ: текст слева, фото справа поверх плашки цитаты */
+  .wf-top {
+    position: relative;
+    padding-bottom: 144px;
+  }
+
+  .wf-photo {
+    position: absolute;
+    z-index: 1;
+    top: -26px;
+    left: 41%;
+    width: 62.4%;
+    height: auto;
+    pointer-events: none;
+  }
+
+  .wf-art img {
+    position: absolute;
+    z-index: 0;
+    max-width: none;
+    pointer-events: none;
+  }
+
+  .wf-shadow {
+    top: 578px;
+    left: 47.6%;
+    width: 64%;
+  }
+
+  .wf-floor {
+    top: 700px;
+    left: 47%;
+    width: 45.6%;
+    transform: rotate(-21deg);
+  }
+
+  .wf-tag {
+    position: relative;
+    z-index: 2;
+    display: block;
+  }
+
+  .wf-h1 {
+    position: relative;
+    z-index: 2;
+    max-width: 806px !important;
+    margin-top: 24px !important;
+    font-size: clamp(32px, 3.96vw, 57px) !important;
+    line-height: 1.01 !important;
+    letter-spacing: -1.4px;
+  }
+
+  .wf-lead {
+    position: relative;
+    z-index: 2;
+    max-width: 515px;
+    margin: 48px 0 0;
+    font-size: 18px;
+    line-height: 1.18;
+  }
+
+  .wf-quote {
+    position: relative;
+    z-index: 0;
+    margin-top: 48px;
+    padding: 28px 36px;
+    width: 91.6%;
+    min-height: 161px;
+    border-radius: 40px;
+    background: #fff;
+  }
+
+  .wf-quote p {
+    position: relative;
+    z-index: 2;
+    max-width: 405px;
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.43;
+  }
+
+  /* СРАВНЕНИЕ */
+  .wf-compare {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 27px;
+  }
+
+  .wf-col {
+    display: grid;
+    align-content: start;
+    gap: 6px;
+  }
+
+  .wf-head,
+  .wf-card {
+    margin: 0;
+    padding: 18px 36px 20px;
+    border-radius: 38px;
+    background: #fff;
+  }
+
+  .wf .wf-head {
+    max-width: none;
+    font-size: 25px;
+    line-height: 1.01;
+    letter-spacing: -0.5px;
+  }
+
+  .wf-card p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.43;
+  }
+
+  .wf-col--us .wf-head,
+  .wf-col--us .wf-card {
+    background: var(--fs-dark);
+    color: #fff;
+  }
+
+  .wf-col--us .wf-card :global(b) {
+    color: var(--fs-lime);
+  }
+
+  .wf-label {
+    display: none;
+  }
+
+  /* ФРАЗА И КНОПКА */
+  .wf-phrase {
+    max-width: 1232px;
+    margin: 77px auto 0;
+    font-size: clamp(22px, 3.96vw, 57px);
+    font-weight: 600;
+    line-height: 1.01;
+    letter-spacing: -1.4px;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  .wf-cta {
+    display: grid;
+    justify-items: center;
+    gap: 4px;
+    margin-top: 33px;
+  }
+
+  .wf-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: min(455px, 100%);
+    min-height: 82px;
+    padding: 4px 4px 4px 43px;
+    border-radius: 306px;
+    background: var(--fs-lime);
+    color: var(--fs-dark) !important;
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+
+  .wf-btn::after {
+    content: '';
+    flex: 0 0 73px;
+    height: 73px;
+    border-radius: 50%;
+    background: var(--fs-dark)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Cpath d='M16 28L28 16M20 16H28V24' fill='none' stroke='%23cefe46' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+      center / 60px no-repeat;
+  }
+
+  .wf-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .wf-more {
+    font-size: 18px;
+    line-height: 1.43;
+    text-decoration: none;
+  }
+
+  .wf-more:hover {
+    text-decoration: underline;
+  }
+
+  /* ПЛАНШЕТ: фото уже не помещается рядом с текстом */
+  @media (max-width: 1100px) {
+    .wf-photo {
+      left: 50%;
+      width: 52%;
+    }
+
+    .wf-shadow,
+    .wf-floor {
+      display: none;
+    }
+
+    .wf-h1,
+    .wf-lead,
+    .wf-quote p {
+      max-width: 48% !important;
+    }
+  }
+
+  /* ТЕЛЕФОН – по мобильному фрейму Figma 48:3330 (ширина 300).
+     Все размеры – в долях ширины фрейма: --u = 1px макета. */
+  @media (max-width: 640px) {
+    .wf {
+      --u: calc(100vw / 300);
+      padding-bottom: calc(24 * var(--u));
+      border-radius: 0 0 calc(20 * var(--u)) calc(20 * var(--u));
+      overflow: hidden;
+    }
+
+    .wf-wrap {
+      width: 100%;
+    }
+
+    .wf-top {
+      height: calc(601 * var(--u));
+      padding: 0;
+    }
+
+    .wf-top > * {
+      position: absolute !important;
+      margin: 0 !important;
+    }
+
+    .wf-art {
+      inset: 0;
+    }
+
+    .wf-shadow,
+    .wf-floor {
+      display: block !important;
+    }
+
+    .wf-shadow {
+      top: calc(444.6 * var(--u));
+      left: calc(25.7 * var(--u));
+      width: calc(325.8 * var(--u));
+    }
+
+    .wf-floor {
+      top: calc(518.3 * var(--u));
+      left: calc(33.6 * var(--u));
+      width: calc(231 * var(--u));
+      transform: rotate(-21.08deg);
+    }
+
+    .wf-photo {
+      z-index: 1;
+      top: calc(185.5 * var(--u));
+      left: calc(-10.2 * var(--u));
+      width: calc(318.5 * var(--u));
+      max-width: none;
+    }
+
+    .wf-tag {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: calc(10 * var(--u));
+    }
+
+    .wf-h1 {
+      top: calc(41.9 * var(--u));
+      left: calc(16 * var(--u));
+      width: calc(268 * var(--u));
+      max-width: none !important;
+      font-size: calc(22 * var(--u)) !important;
+      letter-spacing: -0.5px;
+      text-align: center;
+    }
+
+    .wf-lead {
+      top: calc(128.6 * var(--u));
+      left: calc(10 * var(--u));
+      width: calc(277 * var(--u));
+      max-width: none !important;
+      font-size: calc(12 * var(--u));
+      line-height: 1.43;
+    }
+
+    .wf-quote {
+      z-index: 2;
+      top: calc(432.8 * var(--u));
+      left: calc(10 * var(--u));
+      width: calc(377.4 * var(--u));
+      min-height: calc(104.5 * var(--u));
+      padding: calc(13 * var(--u)) 0 0 calc(21.9 * var(--u));
+      border-radius: calc(10 * var(--u));
+    }
+
+    .wf-quote p {
+      max-width: calc(256 * var(--u)) !important;
+      font-size: calc(12 * var(--u));
+      line-height: 1.31;
+    }
+
+    /* пары: агентства – мы, карточка «мы» заходит на предыдущую */
+    .wf-compare {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 0 calc(10 * var(--u));
+    }
+
+    .wf-col {
+      display: contents;
+    }
+
+    .wf-head {
+      display: none;
+    }
+
+    .wf-col--them .wf-card:nth-of-type(1) { order: 1; }
+    .wf-col--us .wf-card:nth-of-type(1) { order: 2; }
+    .wf-col--them .wf-card:nth-of-type(2) { order: 3; }
+    .wf-col--us .wf-card:nth-of-type(2) { order: 4; }
+    .wf-col--them .wf-card:nth-of-type(3) { order: 5; }
+    .wf-col--us .wf-card:nth-of-type(3) { order: 6; }
+    .wf-col--them .wf-card:nth-of-type(4) { order: 7; }
+    .wf-col--us .wf-card:nth-of-type(4) { order: 8; }
+
+    .wf-card {
+      position: relative;
+      padding: calc(10.7 * var(--u)) calc(14 * var(--u)) calc(14 * var(--u)) calc(10.9 * var(--u));
+      border-radius: calc(10 * var(--u));
+    }
+
+    .wf-col--them .wf-card {
+      margin-top: calc(8 * var(--u));
+    }
+
+    .wf-col--them .wf-card:nth-of-type(1) {
+      margin-top: 0;
+    }
+
+    .wf-col--us .wf-card {
+      z-index: 1;
+      margin-top: calc(-6 * var(--u));
+    }
+
+    .wf-label {
+      display: block;
+      max-width: calc(220 * var(--u));
+      margin-bottom: calc(16.4 * var(--u));
+      font-size: calc(14 * var(--u));
+      font-weight: 600;
+      line-height: 1.01;
+    }
+
+    .wf-card p {
+      font-size: calc(12 * var(--u));
+      line-height: 1.43;
+    }
+
+    .wf-phrase {
+      max-width: calc(273 * var(--u));
+      margin-top: calc(37 * var(--u));
+      font-size: calc(20 * var(--u));
+      letter-spacing: -0.4px;
+    }
+
+    .wf-cta {
+      gap: calc(7.5 * var(--u));
+      margin-top: calc(15 * var(--u));
+    }
+
+    .wf-btn {
+      width: calc(280 * var(--u));
+      min-height: calc(50.3 * var(--u));
+      padding: calc(2.6 * var(--u)) calc(2.6 * var(--u)) calc(2.6 * var(--u)) calc(26.4 * var(--u));
+      font-size: calc(12.3 * var(--u));
+    }
+
+    .wf-btn::after {
+      flex-basis: calc(45.1 * var(--u));
+      height: calc(45.1 * var(--u));
+      background-size: calc(37 * var(--u));
+    }
+
+    .wf-more {
+      font-size: calc(12 * var(--u));
+    }
+  }
+</style>

@@ -1,0 +1,65 @@
+---
+/* Новая главная лендинга «Маркетинг для цветочных магазинов» –
+   по прототипу flowers v2 (deford.ru/prototypes/flowers-v2/versiya-2/),
+   блок в блок. Готовые блоки старой главной (первый экран, сайты,
+   6 причин, подарок, вопросы) – из её дизайна, остальные – home/*. */
+import Flowers from '../layouts/Flowers.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import HomeTop from '../components/home/HomeTop.astro';
+import HomeMid from '../components/home/HomeMid.astro';
+import Sites from '../components/Sites.astro';
+import ShopCases from '../components/ShopCases.astro';
+import SiteReasons from '../components/SiteReasons.astro';
+import SitesCta from '../components/SitesCta.astro';
+import HomePlan from '../components/home/HomePlan.astro';
+import Faq from '../components/Faq.astro';
+import Footer from '../components/Footer.astro';
+import CookieNotice from '../components/CookieNotice.astro';
+import Popup from '../components/Popup.astro';
+import DocPopups from '../components/DocPopups.astro';
+import VideoControls from '../components/VideoControls.astro';
+import '../styles/flowers-sub.css';
+import '../styles/flowers-home.css';
+import '../styles/flowers-figma.css';
+---
+
+<Flowers
+  title="Маркетинг для цветочных магазинов с окупаемостью х3–х15 – TargetFactory"
+  description="Настраиваем рекламу, оформляем группу и делаем сайт для цветочных магазинов по всей России. В отчёте – заказы и выручка, а не охваты. За результат отвечает основатель, Денис Коротаев."
+  canonical="https://targetfactory.ru/flowers"
+>
+  <div id="rec4182986301"><Nav /></div>
+  <div id="rec4182829201"><Hero /></div>
+  <main class="fs">
+    <HomeTop />
+    <HomeMid />
+  </main>
+  <div id="sites"><Sites /></div>
+  <div id="shops"><ShopCases /></div>
+  <div id="site-reasons"><SiteReasons /></div>
+  <div id="sites-audit"><SitesCta /></div>
+  <div class="fs">
+    <HomePlan />
+  </div>
+  <div id="faq"><div id="rec4182831201"><Faq /></div></div>
+  <div class="fs">
+<section class="fs-section">
+  <div class="fs-wrap">
+    <div class="fs-strip">
+      <p>Остался вопрос? <b>Напишите нам в Telegram</b></p>
+      <div class="fs-actions">
+        <a class="fs-btn fs-btn--lime" href="https://t.me/korotaev_denis" target="_blank" rel="noopener">Написать в Telegram</a>
+        <a class="fs-btn fs-btn--ghost" href="#plan" style="border-color: #fff; color: #fff !important;">Получить план роста</a>
+      </div>
+    </div>
+  </div>
+</section>
+  </div>
+  <div id="rec4182946901"><a name="contacts" style="font-size: 0;"></a></div>
+  <div id="rec4182947001"><Footer /></div>
+  <div id="rec4182947101"><CookieNotice /></div>
+  <div id="rec4182986701"><Popup /></div>
+  <DocPopups />
+  <VideoControls />
+</Flowers>

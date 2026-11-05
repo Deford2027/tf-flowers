@@ -1,0 +1,61 @@
+---
+/** Новая главная, блоки 6–10а прототипа flowers v2: видео-отзывы,
+    праздники, было / стало, этапы, баннер, бонусы. Праздники,
+    было / стало, баннер и бонусы – по макету Figma (HomeFigma). */
+const kinescope = (id: string) => `https://kinescope.io/embed/${id}?preload=0`;
+
+const reviews = [
+  ['qanCz44Rme7zJXBcPZJFEH', 'Алексей, цветочный магазин, Тюмень', 'Продажи из ВКонтакте и подробный отчёт каждую неделю и каждый месяц'],
+  ['pB2kHWLuyFSAMz9HB5YH5f', 'Антон Зайцев, цветочный магазин, Нижний Новгород', 'Маркетинг целиком: креативы и тексты команда делает сама'],
+  ['sdDRmLfYR18D3GDpCJG4vD', 'Руслан, сеть салонов Boombox, Пенза', 'Пришёл от другого таргетолога и остался'],
+];
+
+const steps = [
+  ['Бесплатный созвон и аудит', 'Разбираем рекламу и магазин, показываем ошибки и что можно сделать'],
+  ['Рабочий чат и договор', 'Сразу понятно, кто за что отвечает. Договор, работаем с ЭДО'],
+  ['Подготовка и запуск', 'Сообщество, кабинет, объявления – показываем, что и почему настроили'],
+  ['Отчёты и улучшения', 'Каждую неделю – отчёт простым языком и идеи, что улучшить'],
+];
+
+import HomeFigma from './HomeFigma.astro';
+
+const allow = 'autoplay; fullscreen; picture-in-picture; encrypted-media';
+---
+
+<section class="fs-section">
+  <div class="fs-wrap fs-stack fs-center">
+    <span class="fs-tag">Видео-отзывы</span>
+    <h2>Больше 6 лет с цветочными – скопили опыт, кейсы и слова благодарности</h2>
+    <p class="fs-lead">Посмотрите видео-отзывы наших клиентов. Все отзывы и разбор главного – на отдельной странице.</p>
+    <div class="fs-grid fh-swipe" style="--cols: 3; --cols-t: 3; margin-top: 14px; text-align: left;">
+      {reviews.map(([id, who, main]) => (
+        <article class="fs-card">
+          <iframe class="fs-video fs-video--tall" src={kinescope(id)} allow={allow} allowfullscreen loading="lazy" title={`Видео-отзыв: ${who}`}></iframe>
+          <h3>{who}</h3>
+          <p class="fs-muted">{main}</p>
+        </article>
+      ))}
+    </div>
+    <a class="fs-btn" href="/tema-mail-tf-flowers-v2/reviews/">Все видео-отзывы</a>
+  </div>
+</section>
+
+<HomeFigma block="holidays" />
+
+<HomeFigma block="change" />
+
+<section class="fs-section fs-section--light">
+  <div class="fs-wrap fs-stack">
+    <span class="fs-tag">Этапы работы</span>
+    <h2>Четыре шага от созвона до первых заказов</h2>
+    <div class="fs-grid" style="--cols: 4; --cols-t: 2; margin-top: 14px;">
+      {steps.map(([title, text], i) => (
+        <article class="fs-card"><span class="fs-step">0{i + 1}</span><h3>{title}</h3><p class="fs-muted">{text}</p></article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<HomeFigma block="banner" />
+
+{/* Бонусы скрыты 03.11.2026 по слову Артёма – вернуть: <HomeFigma block="bonus" /> */}

@@ -1,0 +1,89 @@
+---
+/** Новая главная, блок 13 прототипа flowers v2: форма «план роста»
+    – шаги 01–04 и поля имя, телефон, город, оборот. Заявка уходит
+    туда же, куда попап (Popup.astro): тот же адрес и служебные поля;
+    город и оборот – дополнительными полями письма. Галочка согласия
+    пустая, кнопка неактивна, пока она не стоит. Вид – по макету
+    Figma (Page 5, «План роста» 48:3584), стили – flowers-figma-plan.css. */
+import '../../styles/flowers-figma-plan.css';
+const FORM_ACTION = 'https://forms.tildacdn.com/procces/';
+const SERVICES = [
+  '383b4ce5b0ddf54b0514cdce11401ef2',
+  '024d230ccd0bacf66604d31c1ce9caf2',
+];
+
+const steps = [
+  ['Оставляете заявку', '– имя, телефон, город и примерный оборот'],
+  ['Собираем ссылки', 'на ваши площадки: группа ВК, сайт, карты'],
+  ['Заранее смотрим', 'ваши площадки и конкурентов в городе'],
+  ['Созвон 30 минут:', 'откроем реальные кабинеты и покажем план'],
+];
+
+const turnover = ['до 150 тыс. ₽', '150–500 тыс. ₽', '500 тыс. – 1 млн ₽', '1–3 млн ₽', 'больше 3 млн ₽'];
+---
+
+<div id="plan">
+  <section class="fx-plan">
+    <div class="fx-wrap fx-plan__in">
+      <img class="fx-plan__floor" src="/tema-mail-tf-flowers-v2/img/figma/plan-floor.svg" alt="" aria-hidden="true" />
+      <img class="fx-plan__vase" src="/tema-mail-tf-flowers-v2/img/figma/plan-vase.webp" width="1086" height="1448" alt="Белые эустомы и гипсофила в стеклянной банке" loading="lazy" />
+
+      <div class="fx-plan__text">
+        <span class="fs-tag">План роста</span>
+        <h2 class="fx-plan__h2">Составим план роста выручки вашего цветочного</h2>
+        <ol class="fx-plan__steps">
+          {steps.map(([b, rest], i) => (
+            <li><span class="fx-num fx-num--s">0{i + 1}</span><span><b>{b}</b> {rest}</span></li>
+          ))}
+        </ol>
+        <p class="fx-plan__lead">Покажем, сколько заказов реально получить в вашем городе и какой бюджет нужен для старта. Бесплатно и ни к чему не обязывает.</p>
+      </div>
+
+      <form class="fx-form" action={FORM_ACTION} method="POST" data-plan-form>
+        {SERVICES.map((id) => <input type="hidden" name="formservices[]" value={id} />)}
+        <input type="hidden" name="tildaspec-elemid" value="1765676764617" />
+        <input type="hidden" name="formid" value="form4182986501" />
+        <p class="fx-form__title">Оставьте заявку</p>
+        <input type="text" name="name" placeholder="Имя" aria-label="Имя" required />
+        <input type="tel" name="Phone" placeholder="Телефон" aria-label="Телефон" required data-plan-phone />
+        <input type="text" name="City" placeholder="Город" aria-label="Город" />
+        <select name="Turnover" aria-label="Оборот в месяц">
+          <option value="" selected>Оборот в месяц</option>
+          {turnover.map((t) => <option value={t}>{t}</option>)}
+        </select>
+        <label class="fx-form__check">
+          <input type="checkbox" name="Checkbox" value="yes" required data-plan-agree />
+          <span>Я ознакомлен(а) с <a href="#popup:infoblock2">Политикой обработки персональных данных</a> и даю <a href="#popup:infoblock1">согласие</a> на их обработку</span>
+        </label>
+        <button type="submit" class="fx-form__btn" disabled data-plan-submit>Получить план роста</button>
+        <p class="fx-form__note">После нажатия с вами свяжутся в Telegram, MAX или по телефону и договоримся о времени созвона.</p>
+      </form>
+    </div>
+  </section>
+</div>
+
+<script is:inline>
+  (function () {
+    var form = document.querySelector('[data-plan-form]');
+    if (!form) return;
+    var agree = form.querySelector('[data-plan-agree]');
+    var submit = form.querySelector('[data-plan-submit]');
+    var phone = form.querySelector('[data-plan-phone]');
+
+    agree.addEventListener('change', function () {
+      submit.disabled = !agree.checked;
+    });
+
+    /* Маска телефона: +7 (000) 000-00-00 */
+    phone.addEventListener('input', function () {
+      var d = phone.value.replace(/\D/g, '').replace(/^[78]/, '').slice(0, 10);
+      var out = '+7';
+      if (d.length) out += ' (' + d.slice(0, 3);
+      if (d.length >= 3) out += ')';
+      if (d.length > 3) out += ' ' + d.slice(3, 6);
+      if (d.length > 6) out += '-' + d.slice(6, 8);
+      if (d.length > 8) out += '-' + d.slice(8, 10);
+      phone.value = out;
+    });
+  })();
+</script>

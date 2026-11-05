@@ -1,0 +1,130 @@
+---
+/** Блоки главной, перерисованные в Figma (Page 5, 02.11.2026):
+    «Праздники» 48:3441, «Что меняется» 48:3475, баннер «Проверим
+    бесплатно» 48:3539, «Бонусы» 48:3553. Какой блок вывести –
+    по свойству block. Стили – styles/flowers-figma.css. */
+interface Props {
+  block: 'holidays' | 'change' | 'banner' | 'bonus';
+}
+
+const { block } = Astro.props;
+const F = '/tema-mail-tf-flowers-v2/img/figma/';
+
+const holidays = [
+  ['До праздника', 'прогреваем базу и делаем рассылку, чтобы заказы пришли заранее'],
+  ['В пик', 'реклама по району, чат-бот отвечает, пока флористы собирают'],
+  ['В несезон', 'держим спрос рассылками по базе и рекламой, без «скидки 40%»'],
+];
+
+const dates = [
+  ['29 ноября', 'День матери'],
+  ['14 февраля', 'Мужчины заказывают онлайн'],
+  ['8 марта', 'Главный пик года'],
+];
+
+const now = [
+  'Заказы – от тех, кто проходит мимо, и с агрегаторов',
+  'Одно объявление крутится месяцами',
+  'База покупателей есть, рассылок нет',
+  'Отчётов и доступа к кабинету нет',
+];
+
+const us = [
+  'ВКонтакте, Директ, карты и рассылки работают вместе',
+  'Каждую неделю пробуем новое объявление или аудиторию',
+  'Пишем тем, кто уже покупал, к их праздникам',
+  'Кабинет ваш, отчёт каждую неделю',
+];
+
+const bonuses = [
+  ['Кэшбэк<br />с рекламного бюджета', 'Часть того, что вы тратите на рекламу, возвращается на рекламный счёт.'],
+  ['Запуск<br /><span class="fx-nowrap">гео-рекламы</span>', 'Магазин на Яндекс Картах и в 2ГИС с рекламой по району: вас находят те, кто ищет «цветы рядом»'],
+  ['Сайт<br />в подарок', 'Сайт с каталогом букетов и заказом – как Milovini и HoliFlori ниже.'],
+];
+---
+
+{block === 'holidays' && (
+  <section class="fx-hol">
+    <div class="fx-wrap fx-hol__in">
+      <div class="fx-hol__text">
+        <h2 class="fx-h2">Праздники готовим<br />за&nbsp;месяц, а&nbsp;не<br />за&nbsp;день до</h2>
+        <ul class="fx-hol__list">
+          {holidays.map(([b, t]) => (
+            <li><img src={F + 'hol-bullet.svg'} width="36" height="36" alt="" /><span><b>{b}</b> – {t}</span></li>
+          ))}
+        </ul>
+        <a class="fx-btn" href="#plan">Хочу отработать праздник лучше</a>
+      </div>
+      <div class="fx-hol__art">
+        <div class="fx-hol__dates">
+          {dates.map(([d, note], i) => (
+            <div class:list={['fx-hol__date', i === 0 && 'fx-hol__date--lime']}><b>{d}</b><span>{note}</span></div>
+          ))}
+        </div>
+        <img class="fx-hol__img" src={F + 'hol-calendar.webp'} width="1536" height="1024" alt="Настольный календарь на февраль и март с отмеченными 14 февраля и 8 марта и букет тюльпанов" loading="lazy" />
+      </div>
+    </div>
+  </section>
+)}
+
+{block === 'change' && (
+  <section class="fx-chg">
+    <div class="fx-wrap">
+      <h2 class="fx-h2 fx-center">Что меняется в магазине, когда маркетинг ведём мы</h2>
+      <div class="fx-chg__grid">
+        <div class="fx-chg__card fx-chg__card--now">
+          <img class="fx-chg__photo" src={F + 'ch-now.webp'} width="1263" height="1246" alt="Расстроенная владелица магазина с ромашкой в руке" loading="lazy" />
+          <div class="fx-chg__col">
+            <h3>Сейчас</h3>
+            {now.map((t) => <p class="fx-chg__item">{t}<i class="fx-ic fx-ic--no" /></p>)}
+          </div>
+          <p class="fx-chg__sum"><i class="fx-ic fx-ic--no" /><span><b>Итог:</b> выручка держится на праздниках</span></p>
+        </div>
+        <div class="fx-chg__card fx-chg__card--us">
+          <img class="fx-chg__photo" src={F + 'ch-us.webp'} width="1199" height="1312" alt="Довольная владелица магазина с большим букетом" loading="lazy" />
+          <div class="fx-chg__col">
+            <h3>С TargetFactory</h3>
+            {us.map((t) => <p class="fx-chg__item">{t}<i class="fx-ic fx-ic--ok" /></p>)}
+          </div>
+          <p class="fx-chg__sum"><i class="fx-ic fx-ic--ok" /><span><b>Итог:</b> заказы из интернета каждую неделю, а не только 8 Марта</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+{block === 'banner' && (
+  <section class="fx-ban">
+    <div class="fx-ban__box">
+      <img class="fx-ban__glow fx-ban__glow--1" src={F + 'ban-glow1.svg'} alt="" />
+      <img class="fx-ban__glow fx-ban__glow--2" src={F + 'ban-glow2.svg'} alt="" />
+      <div class="fx-ban__clip"><img class="fx-ban__img" src={F + 'ban-bouquet.webp'} width="1312" height="1199" alt="Нежный букет из роз, альстромерий и гипсофилы" loading="lazy" /></div>
+      <div class="fx-wrap fx-ban__text">
+        <h2 class="fx-h2">Ваша группа и реклама готовы к праздникам?</h2>
+        <p class="fx-ban__sub">Проверим бесплатно на созвоне</p>
+        <a class="fx-btn fx-btn--short" href="#plan">Проверить мою группу</a>
+      </div>
+    </div>
+  </section>
+)}
+
+{block === 'bonus' && (
+  <section class="fx-bon">
+    <div class="fx-wrap fx-center">
+      <span class="fs-tag">Бонусы</span>
+      <h2 class="fx-h2">Бонусы при старте работы</h2>
+      <p class="fx-bon__lead">Правильно подключаем маркетинговые каналы для экономии рекламного бюджета</p>
+      <div class="fx-bon__grid">
+        {bonuses.map(([t, text], i) => (
+          <article class:list={['fx-bon__card', i === 2 && 'fx-bon__card--dark']}>
+            <span class="fx-num">0{i + 1}</span>
+            <h3 set:html={t} />
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+      <a class="fx-btn" href="#plan">Забронировать бонусы</a>
+      <p class="fx-note">Оформление группы и чат-бот уже входят в пакеты – за это обычно берут 5–15 тыс. ₽.</p>
+    </div>
+  </section>
+)}

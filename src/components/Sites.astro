@@ -1,0 +1,182 @@
+---
+/** «Делаем интернет-магазины для цветочных салонов» – короткий вход
+    в кейсы сайтов (следующий блок ShopCases.astro). По правкам Артёма
+    и Дениса Коротаева: только заголовок, оффер и ссылка к кейсам.
+    Тезисы о старых сайтах переехали в «6 причин» (SiteReasons.astro)
+    после кейсов.
+
+    Стилистика – с соседних секций: серая подложка #dbdbdb, графит,
+    лайм #cefe46, пилюля-тег, заголовок 33/33. */
+
+---
+
+<section class="fmsites">
+  <div class="fmsites__viewport">
+    <header class="fmsites__header">
+      <div class="fmsites__tag">Сайты</div>
+      <h2 class="fmsites__title">
+        Делаем интернет-магазины для цветочных салонов с упором на маркетинг и продажи
+      </h2>
+      <p class="fmsites__lead">
+        Мы не только приводим трафик, но и создаём сайты, которые продают.
+        За плечами – больше 10 лет опыта и огромное количество кейсов.
+      </p>
+    </header>
+
+    <a class="fmsites__more" href="#shops">
+      <span>Посмотрите ниже малую часть наших сайтов, которые мы недавно сдали</span>
+      <span class="fmsites__more-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
+      </span>
+    </a>
+  </div>
+</section>
+
+<style is:global>
+  .fmsites {
+    --fs-dark: #202020;
+    --fs-green: #cefe46;
+    --fs-bg: #dbdbdb;
+    position: relative;
+    width: 100%;
+    padding: 15px 0 0;
+    background: #fff;
+    color: var(--fs-dark);
+    font-family: 'Inter Tight', Inter, Arial, sans-serif;
+    /* единица макета: 1/1200 ширины секции, как у соседних секций */
+    container-type: inline-size;
+  }
+
+  .fmsites,
+  .fmsites * {
+    box-sizing: border-box;
+  }
+
+  .fmsites__viewport {
+    --u: calc(100cqw / 1200);
+    width: 100%;
+    padding: calc(88 * var(--u)) 0 calc(72 * var(--u));
+    overflow: hidden;
+    background: var(--fs-bg);
+    border-radius: clamp(42px, 6.25vw, 120px);
+  }
+
+  .fmsites__header {
+    width: calc(760 * var(--u));
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .fmsites__tag {
+    width: max-content;
+    margin: 0 auto calc(27 * var(--u));
+    padding: calc(7 * var(--u)) calc(10 * var(--u));
+    background: #fff;
+    border: 1px solid #ededee;
+    border-radius: 100px;
+    font-size: calc(11 * var(--u));
+    line-height: calc(13 * var(--u));
+  }
+
+  .fmsites__title {
+    margin: 0;
+    font-size: calc(33 * var(--u));
+    line-height: calc(35 * var(--u));
+    font-weight: 600;
+    letter-spacing: -1px;
+  }
+
+  .fmsites__lead {
+    width: calc(560 * var(--u));
+    margin: calc(18 * var(--u)) auto 0;
+    color: rgba(32, 32, 32, 0.6);
+    font-size: calc(14 * var(--u));
+    line-height: calc(19 * var(--u));
+    font-weight: 500;
+  }
+
+  /* Переход к кейсам */
+  .fmsites__more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(12 * var(--u));
+    width: max-content;
+    margin: calc(30 * var(--u)) auto 0;
+    color: var(--fs-dark);
+    font-size: calc(15 * var(--u));
+    line-height: calc(18 * var(--u));
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .fmsites__more-arrow {
+    display: grid;
+    place-items: center;
+    width: calc(40 * var(--u));
+    height: calc(40 * var(--u));
+    border-radius: 50%;
+    background: var(--fs-dark);
+    animation: fmsites-nudge 2.4s ease-in-out infinite;
+  }
+
+  .fmsites__more-arrow svg {
+    width: 45%;
+    height: 45%;
+    fill: none;
+    stroke: var(--fs-green);
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  @keyframes fmsites-nudge {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 calc(4 * var(--u)); }
+  }
+
+  /* ПЛАНШЕТ: макет 800, тезисы столбиком */
+  @media (max-width: 979px) {
+    .fmsites__viewport { --u: calc(100cqw / 800); padding: calc(70 * var(--u)) 0 calc(60 * var(--u)); }
+    .fmsites__header { width: calc(640 * var(--u)); }
+  }
+
+  /* ТЕЛЕФОН */
+  @media (max-width: 640px) {
+    .fmsites { background: transparent; }
+    .fmsites__viewport { padding: 48px 0 40px; border-radius: 36px; }
+    .fmsites__header { width: 100%; padding: 0 18px; }
+    .fmsites__tag { margin-bottom: 20px; padding: 7px 10px; font-size: 11px; line-height: 13px; }
+
+    .fmsites__title {
+      max-width: 460px;
+      margin: 0 auto;
+      font-size: clamp(25px, 7vw, 33px);
+      line-height: 1;
+      letter-spacing: -0.8px;
+    }
+
+    .fmsites__lead { width: 100%; margin-top: 14px; font-size: 14px; line-height: 19px; }
+
+    .fmsites__more {
+      gap: 12px;
+      width: auto;
+      margin: 26px 18px 0;
+      justify-content: space-between;
+      font-size: 14px;
+      line-height: 18px;
+      text-align: left;
+    }
+
+    .fmsites__more-arrow { width: 40px; height: 40px; flex: 0 0 auto; }
+
+    @keyframes fmsites-nudge {
+      0%, 100% { translate: 0 0; }
+      50% { translate: 0 4px; }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fmsites__more-arrow { animation: none; }
+  }
+</style>
