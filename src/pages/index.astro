@@ -8,7 +8,6 @@ import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
 import HomeTop from '../components/home/HomeTop.astro';
 import HomeMid from '../components/home/HomeMid.astro';
-import Sites from '../components/Sites.astro';
 import ShopCases from '../components/ShopCases.astro';
 import SiteReasons from '../components/SiteReasons.astro';
 import SitesCta from '../components/SitesCta.astro';
@@ -35,8 +34,7 @@ import '../styles/flowers-figma.css';
     <HomeTop />
     <HomeMid />
   </main>
-  <div id="sites"><Sites /></div>
-  <div id="shops"><ShopCases /></div>
+  <div id="sites"><div id="shops"><ShopCases variant="sites" /></div></div>
   <div id="site-reasons"><SiteReasons /></div>
   <div id="sites-audit"><SitesCta /></div>
   <div class="fs">
@@ -44,14 +42,15 @@ import '../styles/flowers-figma.css';
   </div>
   <div id="faq"><div id="rec4182831201"><Faq /></div></div>
   <div class="fs">
-<section class="fs-section">
-  <div class="fs-wrap">
-    <div class="fs-strip">
-      <p>Остался вопрос? <b>Напишите нам в Telegram</b></p>
-      <div class="fs-actions">
-        <a class="fs-btn fs-btn--lime" href="https://t.me/korotaev_denis" target="_blank" rel="noopener">Написать в Telegram</a>
-        <a class="fs-btn fs-btn--ghost" href="#plan" style="border-color: #fff; color: #fff !important;">Получить план роста</a>
-      </div>
+<section class="fx-ask">
+  <div class="fx-wrap fx-ask__in">
+    <div>
+      <h2 class="fx-ask__title">Остался вопрос?</h2>
+      <p class="fx-ask__sub">Напишите нам в Telegram</p>
+    </div>
+    <div class="fs-actions">
+      <a class="fs-btn fs-btn--lime" href="https://t.me/korotaev_denis" target="_blank" rel="noopener">Написать в Telegram</a>
+      <a class="fs-btn fs-btn--ghost" href="#plan">Получить план роста</a>
     </div>
   </div>
 </section>

@@ -45,12 +45,17 @@ const allow = 'autoplay; fullscreen; picture-in-picture; encrypted-media';
 <HomeFigma block="change" />
 
 <section class="fs-section fs-section--light">
-  <div class="fs-wrap fs-stack">
+  <div class="fx-wrap fs-stack">
     <span class="fs-tag">Этапы работы</span>
     <h2>Четыре шага от созвона до первых заказов</h2>
-    <div class="fs-grid" style="--cols: 4; --cols-t: 2; margin-top: 14px;">
+    <div class="fx-steps">
       {steps.map(([title, text], i) => (
-        <article class="fs-card"><span class="fs-step">0{i + 1}</span><h3>{title}</h3><p class="fs-muted">{text}</p></article>
+        <article class="fx-step">
+          <span class="fx-step__num">0{i + 1}</span>
+          <h3>{title}</h3>
+          <p>{text}</p>
+          <a class="fx-plain" href="#plan">Оставить заявку</a>
+        </article>
       ))}
     </div>
   </div>
@@ -58,4 +63,5 @@ const allow = 'autoplay; fullscreen; picture-in-picture; encrypted-media';
 
 <HomeFigma block="banner" />
 
-{/* Бонусы скрыты 03.11.2026 по слову Артёма – вернуть: <HomeFigma block="bonus" /> */}
+{/* Бонусы были скрыты 03.11.2026 по слову Артёма; 05.11.2026 возвращены – они есть в макете Figma Page 6 «Главная» 88:3 */}
+<HomeFigma block="bonus" />

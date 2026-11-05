@@ -3,15 +3,31 @@
     три боли, кейсы, плашка про праздники, «Почему мы», что меняется
     у владельца. Цифры – только подтверждённые (кейсы ВК, 90% клиентов
     годами, 50+ цветочных и 6+ лет – слова Артёма 29.10.2026). */
+import WhyFirst from '../why/WhyFirst.astro';
+
 const I = '/tema-mail-tf-flowers-v2/img/flowers/';
 
-const pains = [
-  ['38663061-ChatGPT_Image_17__20.png', 'Списания', 'Закупили под выходные, а заказов не хватило – цветы уходят в мусор. Запускаем рекламу и рассылку под то, что стоит в холодильнике сейчас.'],
-  ['63383836-ChatGPT_Image_17__20.png', 'Флорист на два фронта', 'Пока он отвечает «сколько стоит» и «успеете к шести?», букет ждёт. Чат-бот сам отвечает на типовые вопросы и передаёт флористу готовый заказ.'],
-  ['32396563-ChatGPT_Image_17__20.png', 'Праздник – завал, будни – тишина', '8 Марта и 14 февраля – пара недель в году. Готовим праздник за месяц, а между праздниками даём людям поводы заказать: дни рождения, годовщины, «просто так».'],
-];
+const F = '/tema-mail-tf-flowers-v2/img/figma/';
 
+/* Боли – по макету Figma (Page 6, «Главная» 88:3, 05.11.2026):
+   тёмные карточки, текст сверху, картинка снизу у края. */
+const pains = [
+  ['pain-trash.webp', 720, 479, 'Розы в мусорном ведре', 'Списания', 'Закупили под выходные, а заказов не хватило – цветы уходят в мусор. Запускаем рекламу и рассылку под то, что стоит в холодильнике сейчас.'],
+  ['pain-chatbot.webp', 720, 540, 'Чат-бот отвечает клиенту и передаёт заказ флористу', 'Флорист на два фронта', 'Пока он отвечает «сколько стоит» и «успеете к шести?», букет ждёт. Чат-бот сам отвечает на типовые вопросы и передаёт флористу готовый заказ.'],
+  ['pain-calendar.webp', 720, 464, 'Календарь с 14 февраля и 8 марта и поводы: дни рождения, годовщины, просто так', 'Праздник – завал, будни – тишина', '8 Марта и 14 февраля – пара недель в году. Готовим праздник за месяц, а между праздниками даём людям поводы заказать: дни рождения, годовщины, «просто так».'],
+] as const;
+
+/* Кейсы – слайдер по макету: карточка с текстом, рядом – доказательство
+   (скрин переписки или кабинета). Первый кейс – из макета (Тольятти). */
 const cases = [
+  {
+    kicker: 'Выручка · Тольятти · 662 тыс. человек',
+    title: 'Цветочный, который ведём в Тольятти',
+    text: 'Реклама, рассылки и чат-бот во ВКонтакте. Выручку и средний чек до и после покажем на созвоне – из кассы и кабинета.',
+    button: 'Хочу больше заказов',
+    chat: 'case-chat-tolyatti.webp',
+    alt: 'Сообщение владельца цветочного: из ВК выручка около 970 тысяч, плюс 280 тысяч к прошлому месяцу',
+  },
   {
     shot: '61363837-3.png',
     kicker: 'Реклама ВКонтакте',
@@ -38,12 +54,6 @@ const cases = [
   },
 ];
 
-const compare = [
-  ['<b>Клиенты уходят через пару месяцев – текучка.</b> Всё поставлено на поток: каждый месяц приходят новые магазины, а про вас уже забыли. В итоге у вас крутятся креативы и связки, настроенные в первую неделю', '<b>90% клиентов работают с нами годами.</b> Я сам в кабинетах клиентов и отвечаю головой за результат'],
-  ['<b>Не понимают экономику магазина:</b> «скидка 40% на цветы» и розыгрыши ради активности', '<b>Считаем маржу:</b> ДРР, окупаемость, средний чек. Акция не должна съедать прибыль'],
-  ['<b>Знают только цветы – взгляд замылен.</b> В кризис не знают, что запускать, и заявки выходят по 1 500 ₽', '<b>Работаем во многих нишах.</b> Приносим рабочие приёмы из автобизнеса, товарки и крупного ритейла – то, чего нет у узких агентств. При этом запустили больше 50 цветочных магазинов по всей России и хорошо знаем нишу'],
-  ['Кабинет у подрядчика: уйдёт – заберёт всё', '<b>Работаем в вашем кабинете</b> – у вас полный доступ и контроль'],
-];
 
 const changes = [
   ['Закуп уходит в заказы', 'Реклама и рассылки идут под то, что есть в холодильнике, – меньше цветов в мусор.', 'Пришла свежая поставка пионов – <mark>сегодня запускаем рассылку по базе</mark> и рекламу по району.'],
@@ -65,16 +75,16 @@ const changes = [
 </section>
 
 <section class="fs-section">
-  <div class="fs-wrap fs-stack fs-center">
+  <div class="fx-wrap fs-stack fs-center">
     <span class="fs-tag">Боли владельца</span>
     <h2>Три вещи, которые съедают выручку цветочного</h2>
-    <div class="fs-grid fh-swipe" style="--cols: 3; --cols-t: 3; margin-top: 14px; text-align: left;">
-      {pains.map(([img, title, text], i) => (
-        <article class="fh-photo-card fh-photo-card--dark">
-          <img src={I + img} alt="" loading="lazy" />
-          <span class="fs-step">0{i + 1}</span>
+    <div class="fx-pain fh-swipe">
+      {pains.map(([img, w, h, alt, title, text], i) => (
+        <article class="fx-pain__card">
+          <span class="fx-pain__num">0{i + 1}</span>
           <h3>{title}</h3>
-          <p class="fs-muted">{text}</p>
+          <p>{text}</p>
+          <img class:list={['fx-pain__img', `fx-pain__img--${i + 1}`]} src={F + img} width={w} height={h} alt={alt} loading="lazy" />
         </article>
       ))}
     </div>
@@ -82,28 +92,56 @@ const changes = [
 </section>
 
 <div id="cases">
-  <section class="fs-section fs-section--dark">
-    <div class="fs-wrap fs-stack fs-center">
-      <span class="fs-tag">Кейсы</span>
-      <h2>Что изменилось у наших цветочных – в цифрах</h2>
-      <p class="fs-lead">Только то, что можно показать из рекламного кабинета или кассы. Каждую цифру покажем на созвоне вживую.</p>
-      <div class="fs-grid fh-swipe" style="--cols: 3; --cols-t: 3; margin-top: 14px; text-align: left;">
-        {cases.map((c) => (
-          <article class="fh-photo-card">
-            <div class="fh-shot"><img src={I + c.shot} alt="Скрин рекламного кабинета" loading="lazy" /></div>
-            <span class="fh-kicker">{c.kicker}</span>
-            <h3 class="fh-case-num">{c.title}</h3>
-            <p class="fs-muted">{c.text}</p>
-            <div class="fh-links">
-              <a class="fs-btn" href="#plan">{c.button}</a>
-              {c.vc && <a class="fs-link" href={c.vc} target="_blank" rel="noopener">Кейс на vc.ru</a>}
+  <section class="fs-section fs-section--dark fx-cases" data-fx-slider>
+    <div class="fx-wrap fx-cases__head">
+      <div class="fs-stack">
+        <span class="fs-tag">Кейсы</span>
+        <h2>Что изменилось у наших цветочных – в&nbsp;цифрах</h2>
+        <p class="fs-lead">Только то, что можно показать из рекламного кабинета или кассы. Каждую цифру покажем на созвоне вживую.</p>
+      </div>
+      <div class="fx-cases__nav">
+        <button class="fx-arrow" type="button" data-dir="-1" aria-label="Предыдущий кейс">←</button>
+        <button class="fx-arrow" type="button" data-dir="1" aria-label="Следующий кейс">→</button>
+      </div>
+    </div>
+    <div class="fx-cases__track" data-fx-track>
+      {cases.map((c) => (
+        <Fragment>
+          <article class="fx-case">
+            <span class="fx-case__kicker">{c.kicker}</span>
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+            <div class="fx-case__foot">
+              <a class="fx-plain" href="#plan">{c.button}</a>
+              {c.vc && <a class="fx-case__vc" href={c.vc} target="_blank" rel="noopener">Кейс на vc.ru</a>}
             </div>
           </article>
-        ))}
-      </div>
+          {c.chat ? (
+            <figure class="fx-case fx-case--chat"><img src={F + c.chat} width="603" height="1311" alt={c.alt} loading="lazy" /></figure>
+          ) : (
+            <figure class="fx-case fx-case--shot"><img src={I + c.shot} alt={`Скрин рекламного кабинета: ${c.title}`} loading="lazy" /></figure>
+          )}
+        </Fragment>
+      ))}
     </div>
   </section>
 </div>
+
+<script is:inline>
+  (function () {
+    document.querySelectorAll('[data-fx-slider]').forEach(function (root) {
+      var track = root.querySelector('[data-fx-track]');
+      if (!track) return;
+      root.querySelectorAll('[data-dir]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var card = track.firstElementChild;
+          var step = card ? card.getBoundingClientRect().width + 20 : 300;
+          track.scrollBy({ left: Number(btn.dataset.dir) * step * 2, behavior: 'smooth' });
+        });
+      });
+    });
+  })();
+</script>
 
 <section class="fs-section fs-section--light" style="padding: 40px 0;">
   <div class="fs-wrap">
@@ -114,27 +152,7 @@ const changes = [
   </div>
 </section>
 
-<section class="fs-section">
-  <div class="fs-wrap fs-stack">
-    <span class="fs-tag">Почему мы</span>
-    <h2>Не типичное агентство: за результат отвечаю лично я – Денис Коротаев</h2>
-    <div class="fs-split" style="margin-top: 14px;">
-      <img class="fs-photo" src={I + '32393532-ChatGPT_Image_15__20.png'} alt="Денис Коротаев на фоне рекламного кабинета клиента" loading="lazy" style="object-position: 70% center;" />
-      <div class="fs-stack">
-        <p style="font-size: 18px; line-height: 1.45;"><b>Денис Коротаев</b>, основатель TargetFactory. Сертифицированный таргетолог и партнёр ВКонтакте, больше 6 лет в digital-продвижении малого и среднего бизнеса.</p>
-        <p class="fs-quote">«Я не просто запускаю рекламу – я погружаюсь в ваш бизнес: изучаю цели, аудиторию и продукт, чтобы выстроить систему, которая начнёт приносить заявки уже в первый месяц».</p>
-      </div>
-    </div>
-    <table class="fs-compare" style="margin-top: 10px;">
-      <tr><th>Крупные рекламные агентства, которые работают с цветами</th><th>Мы</th></tr>
-      {compare.map(([them, us]) => (
-        <tr><td data-label="Крупные агентства" set:html={them} /><td data-label="Мы" set:html={us} /></tr>
-      ))}
-    </table>
-    <h3 class="fh-florist">И мы из тех, кто знает, что у пионов есть сезон, гортензия пьёт много воды, а лилии нужен косой срез.</h3>
-    <div class="fh-links" style="justify-content: center;"><a class="fs-btn fs-btn--lime" href="#plan">Разобрать мой магазин</a><a class="fs-link" href="/tema-mail-tf-flowers-v2/why-us/">Как мы работаем и что вы видите – подробно</a></div>
-  </div>
-</section>
+<WhyFirst home />
 
 <section class="fs-section fs-section--light">
   <div class="fs-wrap fs-stack fs-center">

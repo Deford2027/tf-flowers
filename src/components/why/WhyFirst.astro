@@ -24,21 +24,29 @@ const compare = [
   },
 ];
 
+interface Props {
+  /** На главной: обычная секция, заголовок h2, кнопка – к форме плана, ссылка – на страницу «Почему мы» */
+  home?: boolean;
+}
+const { home = false } = Astro.props;
+const Title = home ? 'h2' : 'h1';
+const Head = home ? 'h3' : 'h2';
+
 const themTitle = 'Рекламные агентства, которые работают только с цветами';
 const usTitle = 'Мы – TargetFactory';
 ---
 
-<section class="fs-section fs-section--first wf">
+<section class:list={['fs-section wf', home ? 'wf--home' : 'fs-section--first']}>
   <div class="wf-wrap">
     <div class="wf-top">
       <div class="wf-art" aria-hidden="true">
         <img class="wf-shadow" src="/tema-mail-tf-flowers-v2/img/figma/why-shadow.svg" alt="" />
         <img class="wf-floor" src="/tema-mail-tf-flowers-v2/img/figma/why-floor.svg" alt="" />
       </div>
-      <img class="wf-photo" src="/tema-mail-tf-flowers-v2/img/figma/why-denis.webp" width="1122" height="1402" alt="Денис Коротаев, основатель TargetFactory, с ноутбуком в кресле" />
+      <img class="wf-photo" loading={home ? 'lazy' : undefined} src="/tema-mail-tf-flowers-v2/img/figma/why-denis.webp" width="1122" height="1402" alt="Денис Коротаев, основатель TargetFactory, с ноутбуком в кресле" />
 
       <span class="fs-tag wf-tag">Почему мы</span>
-      <h1 class="wf-h1">Не типичное агентство: за&nbsp;результат отвечаю лично я – Денис Коротаев</h1>
+      <Title class="wf-h1">Не типичное агентство: за&nbsp;результат отвечаю лично я – Денис Коротаев</Title>
       <p class="wf-lead"><b>Денис Коротаев</b>, основатель TargetFactory. Сертифицированный таргетолог и партнёр ВКонтакте, больше 6 лет в digital-продвижении малого и среднего бизнеса.</p>
       <div class="wf-quote">
         <p>«Я не просто запускаю рекламу – я погружаюсь в ваш бизнес: изучаю цели, аудиторию и продукт, чтобы выстроить систему, которая начнёт приносить заявки уже в первый месяц».</p>
@@ -47,13 +55,13 @@ const usTitle = 'Мы – TargetFactory';
 
     <div class="wf-compare">
       <div class="wf-col wf-col--them">
-        <h2 class="wf-head">{themTitle}</h2>
+        <Head class="wf-head">{themTitle}</Head>
         {compare.map((row) => (
           <div class="wf-card"><span class="wf-label">{themTitle}</span><p set:html={row.them} /></div>
         ))}
       </div>
       <div class="wf-col wf-col--us">
-        <h2 class="wf-head">{usTitle}</h2>
+        <Head class="wf-head">{usTitle}</Head>
         {compare.map((row) => (
           <div class="wf-card"><span class="wf-label">{usTitle}</span><p set:html={row.us} /></div>
         ))}
@@ -62,8 +70,8 @@ const usTitle = 'Мы – TargetFactory';
 
     <p class="wf-phrase">И мы из тех, кто знает, что у пионов есть сезон, гортензия пьёт много воды, а лилии нужен косой срез.</p>
     <div class="wf-cta">
-      <a class="wf-btn" href="#popup:myform">Разобрать мой магазин</a>
-      <a class="wf-more" href="#transparency">Как мы работаем и что вы видите – подробно</a>
+      <a class="wf-btn" href={home ? '#plan' : '#popup:myform'}>Разобрать мой магазин</a>
+      <a class="wf-more" href={home ? '/tema-mail-tf-flowers-v2/why-us/' : '#transparency'}>Как мы работаем и что вы видите – подробно</a>
     </div>
   </div>
 </section>
@@ -469,6 +477,19 @@ const usTitle = 'Мы – TargetFactory';
 
     .wf-more {
       font-size: calc(12 * var(--u));
+    }
+  }
+
+  /* На главной – обычная секция между блоками: скругление со всех сторон */
+  .wf--home {
+    padding-top: 70px;
+    overflow: hidden;
+  }
+
+  @media (max-width: 640px) {
+    .wf.wf--home {
+      padding-top: calc(28 * var(--u));
+      border-radius: calc(20 * var(--u));
     }
   }
 </style>

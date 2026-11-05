@@ -6,6 +6,14 @@
     и город, вместо «Читать подробнее» – ссылка на сам сайт. Без кнопки
     внизу. Названия и города сняты с сайтов магазинов. */
 
+interface Props {
+  /** «sites» – по макету Figma Page 6 «Главная» 88:3 (05.11.2026): блок «Сайты»
+      и кейсы магазинов в одной серой секции, заголовок тёмный, с подводкой */
+  variant?: 'dark' | 'sites';
+}
+const { variant = 'dark' } = Astro.props;
+const isSites = variant === 'sites';
+
 const shops = [
   {
     name: 'Milovini Flowers',
@@ -28,11 +36,21 @@ const shops = [
 ];
 ---
 
-<section class="fmshops" data-fmshops>
+<section class:list={['fmshops', isSites && 'fmshops--sites']} data-fmshops>
   <div class="fmshops__viewport">
     <header class="fmshops__header">
-      <div class="fmshops__tag">Наши кейсы</div>
-      <h2 class="fmshops__title">Интернет-магазины, <br />которые мы создали</h2>
+      {isSites ? (
+        <Fragment>
+          <div class="fmshops__tag">Сайты</div>
+          <h2 class="fmshops__title">Делаем интернет-магазины для цветочных салонов с упором на маркетинг и продажи</h2>
+          <p class="fmshops__lead">Мы не только приводим трафик, но и создаём сайты, которые продают. За плечами – больше 10 лет опыта и огромное количество кейсов.</p>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <div class="fmshops__tag">Наши кейсы</div>
+          <h2 class="fmshops__title">Интернет-магазины, <br />которые мы создали</h2>
+        </Fragment>
+      )}
     </header>
 
     <div class="fmshops__grid">
@@ -197,6 +215,35 @@ const shops = [
     opacity: 0.7;
   }
 
+  /* Вариант «Сайты» – серая подложка, тёмный заголовок 33/35, подводка */
+  .fmshops--sites .fmshops__viewport {
+    background: #dbdbdb;
+    border-radius: clamp(42px, 6.25vw, 90px);
+  }
+
+  .fmshops--sites .fmshops__header {
+    width: calc(700 * var(--u));
+  }
+
+  .fmshops--sites .fmshops__title {
+    width: 100%;
+    color: var(--fs-dark);
+    line-height: calc(35 * var(--u));
+  }
+
+  .fmshops__lead {
+    width: calc(526 * var(--u));
+    margin: calc(22 * var(--u)) auto 0;
+    color: rgba(32, 32, 32, 0.6);
+    font-size: calc(14 * var(--u));
+    line-height: calc(19 * var(--u));
+    font-weight: 500;
+  }
+
+  .fmshops--sites .fmshops__grid {
+    margin-top: calc(44 * var(--u));
+  }
+
   /* Появление при прокрутке – только если скрипт включил анимацию */
   .fmshops.is-anim .fmshops__card { opacity: 0; }
 
@@ -238,6 +285,8 @@ const shops = [
       letter-spacing: -0.8px;
     }
 
+    .fmshops--sites .fmshops__title { font-size: clamp(25px, 7vw, 32px); line-height: 1.05; }
+    .fmshops__lead { width: 100%; margin-top: 16px; font-size: 15px; line-height: 1.4; }
     .fmshops__title br { display: none; }
 
     .fmshops__grid {

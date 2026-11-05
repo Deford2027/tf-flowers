@@ -683,3 +683,437 @@
     font-size: 15px;
   }
 }
+
+/* ==========================================================
+   Блоки главной по макету Figma Page 6 «Главная» 88:3
+   (05.11.2026): боли, кейсы-слайдер, этапы с кнопками,
+   «Остался вопрос?». Сетка та же – 1194 по центру.
+   ========================================================== */
+
+/* Плоская тёмная кнопка-пилюля без стрелки: кейсы, этапы */
+.fx-plain {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 55px;
+  padding: 0 34px;
+  border-radius: 100px;
+  background: var(--fs-dark);
+  color: #fff !important;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.2s ease;
+}
+
+.fx-plain:hover {
+  transform: translateY(-2px);
+}
+
+/* БОЛИ: тёмные карточки, картинка прижата к низу */
+.fx-pain {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  margin-top: 22px;
+  text-align: left;
+}
+
+.fx-pain__card {
+  display: flex;
+  flex-direction: column;
+  min-height: 404px;
+  padding: 30px 30px 0;
+  overflow: hidden;
+  border-radius: 30px;
+  background: var(--fs-dark);
+  color: #fff;
+}
+
+.fx-pain__num {
+  color: var(--fs-lime);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.fs .fx-pain__card h3 {
+  margin-top: 24px;
+  font-size: 20px;
+  line-height: 1.15;
+}
+
+.fs .fx-pain__card p {
+  margin-top: 14px;
+  color: #a9a9a9;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.fx-pain__img {
+  display: block;
+  height: auto;
+  margin: auto auto 0;
+  padding-top: 18px;
+}
+
+.fx-pain__img--1 {
+  width: 92%;
+  margin-left: 22%;
+  margin-right: -14%;
+  margin-bottom: -3%;
+}
+
+.fx-pain__img--2 {
+  width: 98%;
+  margin-bottom: -6%;
+}
+
+.fx-pain__img--3 {
+  width: 98%;
+  margin-bottom: -4%;
+}
+
+/* КЕЙСЫ: заголовок слева, стрелки справа, лента до правого края */
+.fx-cases {
+  overflow: hidden;
+}
+
+.fx-cases__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.fs .fx-cases__head .fs-lead {
+  max-width: 470px;
+  color: #a9a9a9;
+}
+
+.fx-cases__nav {
+  display: flex;
+  gap: 18px;
+  flex: none;
+  margin-bottom: 4px;
+}
+
+.fx-arrow {
+  display: grid;
+  place-items: center;
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--fs-dark);
+  font: 600 18px/1 Inter, Arial, sans-serif;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.fx-arrow:hover {
+  transform: scale(1.06);
+}
+
+.fx-cases__track {
+  --edge: max(18px, (100% - 1194px) / 2);
+  display: flex;
+  gap: 20px;
+  margin-top: 40px;
+  padding: 0 var(--edge);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 var(--edge);
+  scrollbar-width: none;
+}
+
+.fx-cases__track::-webkit-scrollbar {
+  display: none;
+}
+
+.fx-case {
+  flex: 0 0 284px;
+  height: 375px;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 28px;
+  scroll-snap-align: start;
+}
+
+article.fx-case {
+  display: flex;
+  flex-direction: column;
+  padding: 21px 20px 18px;
+  background: #fff;
+  color: var(--fs-dark);
+}
+
+.fx-case__kicker {
+  max-width: 160px;
+  color: var(--fs-muted);
+  font-size: 13px;
+  letter-spacing: 0.2px;
+}
+
+.fs .fx-case h3 {
+  margin-top: 18px;
+  font-size: 20px;
+  line-height: 23px;
+}
+
+.fs .fx-case p {
+  margin-top: 12px;
+  color: #a9a9a9;
+  font-size: 15px;
+  line-height: 21.8px;
+}
+
+.fx-case__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin-top: auto;
+}
+
+.fx-case__foot .fx-plain {
+  min-width: 233px;
+}
+
+.fx-case__vc {
+  color: var(--fs-dark) !important;
+  font-size: 13px;
+}
+
+.fx-case img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 13%;
+}
+
+.fx-case--shot {
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: linear-gradient(160deg, #cefe46 0%, #e9ffad 100%);
+}
+
+.fx-case--shot img {
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.45);
+  transform: rotate(-2deg);
+}
+
+/* ЭТАПЫ: номер в кружке справа, кнопка внизу */
+.fx-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 26px;
+}
+
+.fx-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 289px;
+  padding: 31px 25px 25px 31px;
+  border-radius: 30px;
+  background: #fff;
+}
+
+.fx-step__num {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: grid;
+  place-items: center;
+  width: 39px;
+  height: 39px;
+  border: 1px solid #d4d4d4;
+  border-radius: 50%;
+  color: #a9a9a9;
+  font-size: 13px;
+}
+
+.fs .fx-step h3 {
+  max-width: 170px;
+  font-size: 20px;
+  line-height: 1.15;
+}
+
+.fs .fx-step p {
+  max-width: 240px;
+  margin: 20px 0 24px;
+  color: var(--fs-muted);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.fx-step .fx-plain {
+  width: 100%;
+  margin-top: auto;
+  padding: 0 16px;
+}
+
+/* «ОСТАЛСЯ ВОПРОС?»: тёмная плашка во всю ширину с зелёным свечением */
+.fx-ask {
+  position: relative;
+  margin-top: 15px;
+  overflow: hidden;
+  border-radius: clamp(40px, 9.5vw, 137px);
+  background: var(--fs-dark);
+  color: #fff;
+}
+
+.fx-ask::before {
+  content: '';
+  position: absolute;
+  left: 37%;
+  top: 72%;
+  width: 210px;
+  height: 90px;
+  border-radius: 60px;
+  background: var(--fs-lime);
+  filter: blur(105px);
+  pointer-events: none;
+}
+
+.fx-ask__in {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 40px;
+  min-height: 200px;
+  padding: 40px 0;
+}
+
+.fs .fx-ask__title {
+  max-width: none;
+  font-size: clamp(32px, 3.26vw, 47px);
+  font-weight: 400;
+  line-height: 1.14;
+  letter-spacing: -0.5px;
+}
+
+.fs .fx-ask__sub {
+  margin-top: 4px;
+  color: var(--fs-lime);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.fx-ask .fs-actions {
+  gap: 16px;
+}
+
+.fx-ask .fs-btn {
+  min-height: 67px;
+  font-size: 18px;
+}
+
+.fx-ask .fs-btn--lime {
+  padding-left: 32px;
+}
+
+.fx-ask .fs-btn--lime::after {
+  flex-basis: 56px;
+  height: 56px;
+  background-size: 50px;
+}
+
+.fx-ask .fs-btn--ghost {
+  padding: 0 40px;
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff !important;
+}
+
+@media (max-width: 979px) {
+  .fx-pain {
+    grid-template-columns: repeat(3, minmax(260px, 1fr));
+  }
+
+  .fx-steps {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .fx-pain {
+    display: flex;
+  }
+
+  .fx-pain__card {
+    min-height: 380px;
+    padding: 24px 22px 0;
+  }
+
+  .fx-cases__head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .fx-cases__nav {
+    display: none;
+  }
+
+  .fx-cases__track {
+    margin-top: 26px;
+  }
+
+  .fx-case {
+    flex-basis: 78vw;
+    height: 360px;
+  }
+
+  .fx-steps {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .fx-step {
+    min-height: 0;
+    padding: 24px 22px 22px;
+  }
+
+  .fx-ask {
+    border-radius: 36px;
+  }
+
+  .fx-ask__in {
+    padding: 40px 0 34px;
+  }
+
+  .fx-ask .fs-actions,
+  .fx-ask .fs-btn {
+    width: 100%;
+  }
+
+  .fx-ask .fs-btn--lime {
+    justify-content: space-between;
+  }
+
+  .fx-ask .fs-btn--ghost {
+    justify-content: center;
+  }
+}
+
+/* Ярлык над заголовком в блоках «Праздники» и «Было / стало» */
+.fx-tag {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.fx-tag--center {
+  margin-right: auto;
+  margin-left: auto;
+}
