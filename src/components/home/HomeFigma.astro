@@ -57,7 +57,7 @@ const bonuses = [
         <a class="fx-btn" href="#plan">Хочу отработать праздник лучше</a>
       </div>
       <div class="fx-hol__art">
-        <div class="fx-hol__dates">
+        <div class="fx-hol__dates" data-fx-items="" data-fx-from="behind" data-fx-step="0.18" data-fx-reverse>
           {dates.map(([d, note], i) => (
             <div class:list={['fx-hol__date', i === 0 && 'fx-hol__date--lime']}><b>{d}</b><span>{note}</span></div>
           ))}
@@ -73,7 +73,7 @@ const bonuses = [
     <div class="fx-wrap">
       <span class="fs-tag fx-tag fx-tag--center">Было / стало</span>
       <h2 class="fx-h2 fx-center">Что меняется в магазине, когда маркетинг ведём мы</h2>
-      <div class="fx-chg__grid">
+      <div class="fx-chg__grid" data-fx-items=".fx-chg__card" data-fx-step="0.2">
         <div class="fx-chg__card fx-chg__card--now">
           <img class="fx-chg__photo" src={F + 'ch-now.webp'} width="1263" height="1246" alt="Расстроенная владелица магазина с ромашкой в руке" loading="lazy" />
           <div class="fx-chg__col">

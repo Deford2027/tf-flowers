@@ -78,7 +78,7 @@ const changes = [
   <div class="fx-wrap fs-stack fs-center">
     <span class="fs-tag">Боли владельца</span>
     <h2>Три вещи, которые съедают выручку цветочного</h2>
-    <div class="fx-pain fh-swipe">
+    <div class="fx-pain fh-swipe" data-fx-items="" data-fx-step="0.15">
       {pains.map(([img, w, h, alt, title, text], i) => (
         <article class="fx-pain__card">
           <span class="fx-pain__num">0{i + 1}</span>
@@ -128,12 +128,41 @@ const changes = [
 </div>
 
 <script is:inline>
-  /* Появление карточек при прокрутке: прячем только если есть
-     IntersectionObserver, иначе карточки видны сразу */
-  (function () {
-    var items = document.querySelectorAll('[data-fx-reveal]');
-    if (!items.length || !('IntersectionObserver' in window)) return;
+  /* Появление блоков при прокрутке (вся главная).
+     [data-fx-reveal] – старый вариант: дети контейнера, стили .fx-reveal.
+     [data-fx-items="<селектор>"] – общий: элементы по селектору (пусто –
+     прямые дети) получают класс .fx-r, задержку --fx-d (шаг data-fx-step
+     по порядку внутри родителя) и направление .fx-r--<from> из ближайшего
+     data-fx-from (up по умолчанию); data-fx-reverse – обратный порядок.
+     Без IntersectionObserver и при «уменьшении движения» всё видно сразу. */
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!('IntersectionObserver' in window)) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var boxes = [];
+    document.querySelectorAll('[data-fx-reveal]').forEach(function (el) { boxes.push(el); });
+    document.querySelectorAll('[data-fx-items]').forEach(function (box) {
+      var sel = box.getAttribute('data-fx-items');
+      var items = sel ? box.querySelectorAll(sel) : box.children;
+      var step = parseFloat(box.getAttribute('data-fx-step') || '0.12');
+      var groups = new Map();
+      Array.prototype.forEach.call(items, function (it) {
+        var list = groups.get(it.parentNode) || [];
+        list.push(it);
+        groups.set(it.parentNode, list);
+      });
+      groups.forEach(function (list) {
+        if (box.hasAttribute('data-fx-reverse')) list.reverse();
+        list.forEach(function (it, n) {
+          var fromEl = it.closest('[data-fx-from]');
+          var from = fromEl && box.contains(fromEl) ? fromEl.getAttribute('data-fx-from') : 'up';
+          it.classList.add('fx-r', 'fx-r--' + from);
+          it.style.setProperty('--fx-d', (n * step).toFixed(2) + 's');
+        });
+      });
+      boxes.push(box);
+    });
+
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
@@ -141,25 +170,12 @@ const changes = [
         io.unobserve(e.target);
       });
     }, { threshold: 0.2 });
-    items.forEach(function (el) {
+
+    boxes.forEach(function (el) {
       el.classList.add('is-anim');
       io.observe(el);
     });
-  })();
-
-  (function () {
-    document.querySelectorAll('[data-fx-slider]').forEach(function (root) {
-      var track = root.querySelector('[data-fx-track]');
-      if (!track) return;
-      root.querySelectorAll('[data-dir]').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var card = track.firstElementChild;
-          var step = card ? card.getBoundingClientRect().width + 20 : 300;
-          track.scrollBy({ left: Number(btn.dataset.dir) * step * 2, behavior: 'smooth' });
-        });
-      });
-    });
-  })();
+  });
 </script>
 
 <section class="fs-section fs-section--light" style="padding: 40px 0;">
@@ -177,7 +193,7 @@ const changes = [
   <div class="fs-wrap fs-stack fs-center">
     <span class="fs-tag">Что меняется</span>
     <h2>Меньше списаний, спокойнее праздники, больше времени на магазин</h2>
-    <div class="fs-grid" style="--cols: 3; --cols-t: 1; margin-top: 14px; text-align: left;">
+    <div class="fs-grid" data-fx-items="" data-fx-step="0.15" style="--cols: 3; --cols-t: 1; margin-top: 14px; text-align: left;">
       {changes.map(([title, text, msg], i) => (
         <article class="fs-card">
           <span class="fs-step">0{i + 1}</span>

@@ -53,14 +53,14 @@ const usTitle = 'Мы – TargetFactory';
       </div>
     </div>
 
-    <div class="wf-compare">
-      <div class="wf-col wf-col--them">
+    <div class="wf-compare" data-fx-items={home ? '.wf-col > *' : undefined} data-fx-step="0.12">
+      <div class="wf-col wf-col--them" data-fx-from="left">
         <Head class="wf-head">{themTitle}</Head>
         {compare.map((row) => (
           <div class="wf-card"><span class="wf-label">{themTitle}</span><p set:html={row.them} /></div>
         ))}
       </div>
-      <div class="wf-col wf-col--us">
+      <div class="wf-col wf-col--us" data-fx-from="right">
         <Head class="wf-head">{usTitle}</Head>
         {compare.map((row) => (
           <div class="wf-card"><span class="wf-label">{usTitle}</span><p set:html={row.us} /></div>

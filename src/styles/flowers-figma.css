@@ -761,10 +761,10 @@
 }
 
 .fx-pain__img--1 {
-  width: 92%;
-  margin-left: 22%;
-  margin-right: -14%;
-  margin-bottom: -3%;
+  width: 116%;
+  margin-left: 6%;
+  margin-right: -22%;
+  margin-bottom: -5%;
 }
 
 .fx-pain__img--2 {
@@ -1156,4 +1156,89 @@ article.fx-case {
 @keyframes fxRevealNum {
   from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: none; }
+}
+
+/* ==========================================================
+   Общее появление при прокрутке: [data-fx-items] → .fx-r
+   (скрипт – в home/HomeTop.astro). Задержка – --fx-d.
+   ========================================================== */
+.is-anim .fx-r {
+  opacity: 0;
+}
+
+.is-in .fx-r {
+  animation: fxRUp 0.8s cubic-bezier(0.2, 0.8, 0.25, 1) var(--fx-d, 0s) both;
+}
+
+.is-in .fx-r--left {
+  animation-name: fxRLeft;
+}
+
+.is-in .fx-r--right {
+  animation-name: fxRRight;
+}
+
+/* даты выезжают вверх из-за календаря, каждая на свою высоту */
+.is-in .fx-r--behind {
+  animation: fxRBehind 0.9s cubic-bezier(0.2, 0.85, 0.3, 1.08) calc(var(--fx-d, 0s) + 0.15s) both;
+}
+
+.fx-hol__date:nth-child(1) { --fx-y: 330px; }
+.fx-hol__date:nth-child(2) { --fx-y: 230px; }
+.fx-hol__date:nth-child(3) { --fx-y: 110px; }
+
+@keyframes fxRUp {
+  from { opacity: 0; transform: translateY(40px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes fxRLeft {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes fxRRight {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes fxRBehind {
+  0% { opacity: 0; transform: translateY(var(--fx-y, 200px)); }
+  20% { opacity: 1; }
+  100% { opacity: 1; transform: none; }
+}
+
+/* Боли: картинка поднимается снизу чуть позже карточки */
+.is-anim .fx-pain__img {
+  opacity: 0;
+}
+
+.is-in .fx-pain__img {
+  animation: fxRImg 0.9s cubic-bezier(0.2, 0.8, 0.25, 1) calc(var(--fx-d, 0s) + 0.25s) both;
+}
+
+@keyframes fxRImg {
+  from { opacity: 0; transform: translateY(60px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Было / стало: строки списка выезжают справа по очереди, итог – последним */
+.is-anim .fx-chg__item,
+.is-anim .fx-chg__sum {
+  opacity: 0;
+}
+
+.is-in .fx-chg__item,
+.is-in .fx-chg__sum {
+  animation: fxRRight 0.6s cubic-bezier(0.2, 0.8, 0.25, 1) both;
+}
+
+.is-in .fx-chg__item:nth-of-type(1) { animation-delay: calc(var(--fx-d, 0s) + 0.3s); }
+.is-in .fx-chg__item:nth-of-type(2) { animation-delay: calc(var(--fx-d, 0s) + 0.42s); }
+.is-in .fx-chg__item:nth-of-type(3) { animation-delay: calc(var(--fx-d, 0s) + 0.54s); }
+.is-in .fx-chg__item:nth-of-type(4) { animation-delay: calc(var(--fx-d, 0s) + 0.66s); }
+
+.is-in .fx-chg__sum {
+  animation-name: fxRUp;
+  animation-delay: calc(var(--fx-d, 0s) + 0.85s);
 }
