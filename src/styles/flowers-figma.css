@@ -314,8 +314,10 @@
 
 /* БАННЕР «ПРОВЕРИМ БЕСПЛАТНО» */
 .fx-ban {
-  padding: 157px 0 45px;
-  background: #fff;
+  position: relative;
+  z-index: 1;
+  padding: 15px 0 45px;
+  background: transparent;
 }
 
 .fx-ban__box {
@@ -645,7 +647,7 @@
   }
 
   .fx-ban {
-    padding-top: 130px;
+    padding-top: 15px;
   }
 
   .fx-ban__box {
@@ -653,7 +655,7 @@
   }
 
   .fx-ban__img {
-    top: 170px;
+    top: 235px;
     right: -60px;
     width: 300px;
   }
@@ -663,7 +665,7 @@
   }
 
   .fx-ban__text {
-    padding: 160px 0 28px;
+    padding: 200px 0 28px;
   }
 
   .fx-bon {
