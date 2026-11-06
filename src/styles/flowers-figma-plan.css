@@ -6,19 +6,21 @@
    ========================================================== */
 
 .fx-plan {
-  background: #fff;
+  position: relative;
+  z-index: 1;
+  background: transparent;
 }
 
 .fx-plan__in {
   position: relative;
-  min-height: 1022px;
-  padding: 291px 0 60px;
+  min-height: 826px;
+  padding: 95px 0 60px;
 }
 
 .fx-plan__vase {
   position: absolute;
   z-index: 1;
-  top: -6px;
+  top: -202px;
   left: 34.1%;
   width: 521px;
   height: 994px;
@@ -30,7 +32,7 @@
 
 .fx-plan__floor {
   position: absolute;
-  top: 897px;
+  top: 701px;
   left: 42.5%;
   width: 559px;
   max-width: none;
@@ -96,7 +98,7 @@
 .fx-form {
   position: absolute;
   z-index: 3;
-  top: 322px;
+  top: 126px;
   right: -3px;
   display: grid;
   width: 441px;
