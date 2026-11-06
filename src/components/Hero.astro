@@ -685,33 +685,40 @@ and
 }
 
 .fmhero.is-visible
-.fmhero__lead--vk {
+.fmhero__lead--ya {
   animation:
-    fmVK
-    .72s
-    cubic-bezier(.18,.89,.32,1.22)
-    .48s
+    fmLeadYA
+    .9s
+    cubic-bezier(.2,.9,.3,1.12)
+    .7s
     both;
 }
 
 .fmhero.is-visible
 .fmhero__lead--tg {
   animation:
-    fmTG
-    .72s
-    cubic-bezier(.18,.89,.32,1.22)
-    .58s
+    fmLeadTG
+    .9s
+    cubic-bezier(.2,.9,.3,1.12)
+    1.05s
     both;
 }
 
 .fmhero.is-visible
-.fmhero__lead--ya {
+.fmhero__lead--vk {
   animation:
-    fmYA
-    .72s
-    cubic-bezier(.18,.89,.32,1.22)
-    .68s
+    fmLeadVK
+    .9s
+    cubic-bezier(.2,.9,.3,1.12)
+    1.4s
     both;
+}
+
+/* Карточки заявок выезжают из-за букета: фото с букетом
+   (прозрачный PNG) стоит выше карточек, пока они едут,
+   а в конце карточка встаёт поверх фото (z-index в кадрах). */
+.fmhero__person {
+  z-index:6;
 }
 
 
@@ -757,70 +764,25 @@ and
 
 }
 
-@keyframes fmVK {
-
-  from {
-    opacity:0;
-
-    transform:
-      translateY(28px)
-      scale(.88)
-      rotate(-3deg);
-  }
-
-  to {
-    opacity:1;
-
-    transform:
-      translateY(0)
-      scale(1)
-      rotate(2.13deg);
-  }
-
+@keyframes fmLeadYA {
+  0%   { opacity:0; z-index:1; transform:translate(30px,230px) scale(.82) rotate(12deg); }
+  25%  { opacity:1; }
+  99%  { z-index:1; }
+  100% { opacity:1; z-index:7; transform:translate(0,0) scale(1) rotate(3.39deg); }
 }
 
-@keyframes fmTG {
-
-  from {
-    opacity:0;
-
-    transform:
-      translateY(28px)
-      scale(.88)
-      rotate(-13deg);
-  }
-
-  to {
-    opacity:1;
-
-    transform:
-      translateY(0)
-      scale(1)
-      rotate(-7deg);
-  }
-
+@keyframes fmLeadTG {
+  0%   { opacity:0; z-index:1; transform:translate(50px,300px) scale(.82) rotate(-18deg); }
+  25%  { opacity:1; }
+  99%  { z-index:1; }
+  100% { opacity:1; z-index:7; transform:translate(0,0) scale(1) rotate(-7deg); }
 }
 
-@keyframes fmYA {
-
-  from {
-    opacity:0;
-
-    transform:
-      translateY(28px)
-      scale(.88)
-      rotate(-3deg);
-  }
-
-  to {
-    opacity:1;
-
-    transform:
-      translateY(0)
-      scale(1)
-      rotate(3deg);
-  }
-
+@keyframes fmLeadVK {
+  0%   { opacity:0; z-index:1; transform:translate(30px,370px) scale(.82) rotate(10deg); }
+  25%  { opacity:1; }
+  99%  { z-index:1; }
+  100% { opacity:1; z-index:7; transform:translate(0,0) scale(1) rotate(2.13deg); }
 }
 
 
@@ -1484,6 +1446,10 @@ and
     opacity:1 !important;
 
     animation:none !important;
+  }
+
+  .fmhero__lead {
+    z-index:7 !important;
   }
 
   .fmhero__person {
