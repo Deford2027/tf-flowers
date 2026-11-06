@@ -31,7 +31,7 @@ const turnover = ['до 150 тыс. ₽', '150–500 тыс. ₽', '500 тыс. 
       <div class="fx-plan__text">
         <span class="fs-tag">План роста</span>
         <h2 class="fx-plan__h2">Составим план роста выручки вашего цветочного</h2>
-        <ol class="fx-plan__steps">
+        <ol class="fx-plan__steps" data-fx-items="" data-fx-step="0.12">
           {steps.map(([b, rest], i) => (
             <li><span class="fx-num fx-num--s">0{i + 1}</span><span><b>{b}</b> {rest}</span></li>
           ))}

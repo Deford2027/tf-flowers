@@ -116,7 +116,7 @@ const bonuses = [
       <span class="fs-tag">Бонусы</span>
       <h2 class="fx-h2">Бонусы при старте работы</h2>
       <p class="fx-bon__lead">Правильно подключаем маркетинговые каналы для экономии рекламного бюджета</p>
-      <div class="fx-bon__grid">
+      <div class="fx-bon__grid" data-fx-items="" data-fx-step="0.15">
         {bonuses.map(([t, text], i) => (
           <article class:list={['fx-bon__card', i === 2 && 'fx-bon__card--dark']}>
             <span class="fx-num">0{i + 1}</span>
