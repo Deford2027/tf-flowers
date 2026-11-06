@@ -66,7 +66,7 @@ const changes = [
   <div class="fs-wrap fs-stack fs-center">
     <span class="fs-tag">Поток заказов</span>
     <h2>Наладим поток заказов для вашего цветочного</h2>
-    <div class="fs-grid" style="--cols: 3; --cols-t: 3; margin-top: 14px; text-align: left;">
+    <div class="fs-grid fx-reveal" data-fx-reveal style="--cols: 3; --cols-t: 3; margin-top: 14px; text-align: left;">
       <article class="fs-card"><span class="fs-num">50+</span><h3>цветочных магазинов запустили</h3><p class="fs-muted">Знаем закуп, сезоны и средний чек цветочного – не учимся на вашем бюджете</p></article>
       <article class="fs-card fs-card--dark"><span class="fs-num">90%</span><h3>клиентов работают с нами годами</h3><p class="fs-muted">Магазины остаются, потому что видят заказы, а не отчёты об охватах</p></article>
       <article class="fs-card"><span class="fs-num">Любой</span><h3>город</h3><p class="fs-muted">От посёлка на 20 тысяч человек до миллионника – бюджет считаем под ваш город</p></article>
@@ -128,6 +128,25 @@ const changes = [
 </div>
 
 <script is:inline>
+  /* Появление карточек при прокрутке: прячем только если есть
+     IntersectionObserver, иначе карточки видны сразу */
+  (function () {
+    var items = document.querySelectorAll('[data-fx-reveal]');
+    if (!items.length || !('IntersectionObserver' in window)) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.2 });
+    items.forEach(function (el) {
+      el.classList.add('is-anim');
+      io.observe(el);
+    });
+  })();
+
   (function () {
     document.querySelectorAll('[data-fx-slider]').forEach(function (root) {
       var track = root.querySelector('[data-fx-track]');
