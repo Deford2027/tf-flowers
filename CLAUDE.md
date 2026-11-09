@@ -1,6 +1,6 @@
 # tf-flowers – новый лендинг TargetFactory «Маркетинг для цветочных магазинов»
 
-- Новая версия по макету Figma: https://korolevuiux-glitch.github.io/tema-mail-tf-flowers-v2/ (исходник – tema-mail/tf-flowers) (noindex). Клиент – Денис Коротаев, targetfactory.ru.
+- Новая версия по макету Figma: https://deford2027.github.io/tf-flowers/ (репо Deford2027/tf-flowers; прежняя копия – korolevuiux-glitch/tema-mail-tf-flowers-v2; исходник – tema-mail/tf-flowers) (noindex). Клиент – Денис Коротаев, targetfactory.ru.
 - Главная – по прототипу flowers v2 (deford.ru/prototypes/flowers-v2/versiya-2/) блок в блок; страницы why-us, prices, reviews, breakdowns.
 - Дизайн – с лендинга deford.ru/flowers (репо deford-studio): компоненты скопированы, пути с префиксом /tf-flowers/.
 - Задание и вопросы Денису – docs/ZADANIE.md. Цифры только подтверждённые, без длинного тире «—».

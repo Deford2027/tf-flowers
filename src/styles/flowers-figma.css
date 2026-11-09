@@ -281,11 +281,11 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #fff url('/tema-mail-tf-flowers-v2/img/figma/ch-x.svg') center / 18px no-repeat;
+  background: #fff url('/tf-flowers/img/figma/ch-x.svg') center / 18px no-repeat;
 }
 
 .fx-ic--ok {
-  background: var(--fs-lime) url('/tema-mail-tf-flowers-v2/img/figma/ch-ok.svg') center / 17px no-repeat;
+  background: var(--fs-lime) url('/tf-flowers/img/figma/ch-ok.svg') center / 17px no-repeat;
 }
 
 .fs .fx-chg__sum {
